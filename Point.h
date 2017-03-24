@@ -17,4 +17,4 @@ class Point
 	void setY(double _y);
 };
 
-#endif
+#endif //POINT_H
