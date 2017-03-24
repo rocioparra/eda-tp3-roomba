@@ -1,3 +1,4 @@
+#include "Robot.h"
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
@@ -13,7 +14,7 @@ Robot::Robot(uint _xmax, uint _ymax)
 
 void Robot::moveRobotToPoint(const Point& _p)
 {
-	p.x = _p.x;
+	p.x = _p.x; 
 	p.y = _p.y;
 	return;
 }
@@ -21,7 +22,7 @@ void Robot::moveRobotToPoint(const Point& _p)
 void Robot::moveRobot(void)
 {
 	double _angle;
-	_angle = Robot.change2Rad();
+	_angle = change2Rad();
 	p.x= p.x + sin(_angle);
 	p.y= p.y + cos(_angle);
 }
@@ -51,7 +52,7 @@ double Robot::getAngle(void)
 Point Robot::randomPoint(void)
 {
 	Point _p;
-	srand(time(NULL));
+	srand((uint) time(NULL));
 	_p.x = (rand() % xmax);
 	_p.y = (rand() % ymax);
 	return _p;
