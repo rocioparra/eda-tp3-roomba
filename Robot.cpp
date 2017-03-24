@@ -94,11 +94,5 @@ bool Robot::checkEverythingOk(void)
 
 double Robot::myRand(uint max)
 {
-	double temp;
-	temp = (rand()% (max-1));
-	for(int i=1; i<= 5; i++)
-	{	
-		temp = temp + (((double)(rand()%10)) / i);
-	}
-	return temp;
+	return (((double)rand())/(RAND_MAX/max));
 }
