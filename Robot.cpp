@@ -12,13 +12,13 @@ Robot::Robot(uint _xmax, uint _ymax)
 	return;
 }
 
-bool Robot::moveRobotToPoint(const Point& _p)
+bool Robot::moveRobotToPoint(Point& _p)
 {
 	double c;
-	if( ((c = _p.x) < xmax) && (c>0) && ((c = _p.y)< ymax) && (c > 0))
+	if( ((c = _p.getX()) < xmax) && (c>0) && ((c = _p.getY())< ymax) && (c > 0))
 	{
-		p.x = _p.x; 
-		p.y = _p.y;
+		p.setX(_p.getX()); 
+		p.setY(_p.getY());
 		return true;
 	}
 	else
@@ -29,10 +29,10 @@ bool Robot::moveRobot(void)
 {
 	double _angle, c,d;
 	_angle = changeAngle2Rad();
-	if (((c = p.x + sin(_angle)) < xmax) && (c>0) && ((d = p.y + cos(_angle)) < ymax) && (d>0))
+	if (((c = p.getX() + sin(_angle)) < xmax) && (c>0) && ((d = p.getY() + cos(_angle)) < ymax) && (d>0))
 	{
-		p.x = c;
-		p.y = d;
+		p.setX(c);
+		p.setY(d);
 		return true;
 	}
 	else
@@ -48,12 +48,12 @@ double Robot::changeAngle2Rad(void)		//Funciones que recibe un angulo y lo trans
 
 double Robot::getX(void)
 {
-	return p.x;
+	return p.getX();
 }
 
 double Robot::getY(void)
 {
-	return p.y;
+	return p.getY();
 }
 
 double Robot::getAngle(void)
@@ -65,8 +65,8 @@ Point Robot::randomPoint(void)
 {
 	Point _p;
 	srand((uint) time(NULL));
-	_p.x = (rand() % xmax);
-	_p.y = (rand() % ymax);
+	_p.setX((rand() % xmax));
+	_p.setY((rand() % ymax));
 	return _p;
 }
 
@@ -74,7 +74,7 @@ bool Robot::getNewAngle(void)
 {
 	double c, d, _angle;
 	_angle = changeAngle2Rad();
-	if (((c = p.x + sin(_angle)) < xmax) && (c>0) && ((d = p.y + cos(_angle)) < ymax) && (d>0))
+	if (((c = p.getX() + sin(_angle)) < xmax) && (c>0) && ((d = p.getY() + cos(_angle)) < ymax) && (d>0))
 		return false;
 	else
 	{
@@ -86,7 +86,7 @@ bool Robot::getNewAngle(void)
 
 bool Robot::checkEverythingOk(void)
 {
-	if((angle<360) && (angle > 0) && (p.x < xmax) && (p.x > 0) && (p.y <ymax) && (p.y >0))
+	if((angle<360) && (angle > 0) && (p.getX() < xmax) && (p.getX() > 0) && (p.getY() <ymax) && (p.getY() >0))
 		return true;
 	else
 		return false;

@@ -27,7 +27,7 @@ public:
 		...
 	  }
 	*/
-	bool moveRobotToPoint(const Point& _p);
+	bool moveRobotToPoint(Point& _p);
 	/*Funcion que bien podria ser private:, pero se la deja como publica por si el programador queire inicializar el robot en algun punto en especifico
 	ACLARACION: devuelve true si se pudo inicializar el robot en la posicion indicada, o false si la posicion indicada esta fuera del rango de nuestro plano.
 	Se usa de la siguiente manera:
