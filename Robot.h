@@ -1,3 +1,6 @@
+#ifndef ROBOT_H
+#define ROBOT_H
+
 #include "Point.h"
 
 typedef unsigned int uint;
@@ -16,6 +19,8 @@ private:
 	double changeAngle2Rad();
 	/*Funcion que cambia el valor del angulo a radianes y le devuelve como parametro, es decir, NO cambia el valor de angle.
 	*/
+	double myRand(uint max);
+	/*Funcion hecha para generar numeros random que no sean enteros.*/
 public:
 	Robot(uint _xmax, uint _ymax);
 	/*Funcion Constructor, inicializa las variables xmax e ymax con los parametros recibidos, y mueve al robor a un punto random del plano.
@@ -56,3 +61,6 @@ public:
 	/*Funcion de DEBUGEO, devuelve true si esta todo bien, y false si alguna variable esta fuera de rango.*/
 };
 
+
+
+#endif //ROBOT_H

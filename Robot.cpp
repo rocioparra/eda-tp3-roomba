@@ -8,6 +8,8 @@ Robot::Robot(uint _xmax, uint _ymax)
 {
 	xmax= _xmax;
 	ymax= _ymax;
+	srand((uint) time(NULL));
+	angle = (rand() % 360);
 	moveRobotToPoint(randomPoint());
 	return;
 }
@@ -29,7 +31,7 @@ bool Robot::moveRobot(void)
 {
 	double _angle, c,d;
 	_angle = changeAngle2Rad();
-	if (((c = p.getX() + sin(_angle)) < xmax) && (c>0) && ((d = p.getY() + cos(_angle)) < ymax) && (d>0))
+	if (((c = (p.getX() + sin(_angle))) < xmax) && (c>0) && ((d = (p.getY() + cos(_angle))) < ymax) && (d>0))
 	{
 		p.setX(c);
 		p.setY(d);
@@ -65,8 +67,8 @@ Point Robot::randomPoint(void)
 {
 	Point _p;
 	srand((uint) time(NULL));
-	_p.setX((rand() % xmax));
-	_p.setY((rand() % ymax));
+	_p.setX(myRand(xmax));
+	_p.setY(myRand(ymax));
 	return _p;
 }
 
@@ -90,4 +92,15 @@ bool Robot::checkEverythingOk(void)
 		return true;
 	else
 		return false;
+}
+
+double Robot::myRand(uint max)
+{
+	double temp;
+	temp = (rand()% (max-1));
+	for(int i=1; i<= 5; i++)
+	{	
+		temp = temp + (((double)(rand()%10)) / i);
+	}
+	return temp;
 }
