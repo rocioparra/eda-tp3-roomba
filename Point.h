@@ -18,3 +18,4 @@ class Point
 };
 
 #endif //POINT_H
+

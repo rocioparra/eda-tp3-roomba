@@ -26,3 +26,4 @@ void Point :: setY(double _y)
 {
 	y = _y;
 }
+
