@@ -8,7 +8,6 @@ Robot::Robot(uint _xmax, uint _ymax)
 {
 	xmax= _xmax;
 	ymax= _ymax;
-	srand((uint) time(NULL));
 	angle = (rand() % 360);
 	moveRobotToPoint(randomPoint());
 	return;
@@ -66,7 +65,6 @@ double Robot::getAngle(void)
 Point Robot::randomPoint(void)
 {
 	Point _p;
-	srand((uint) time(NULL));
 	_p.setX(myRand(xmax));
 	_p.setY(myRand(ymax));
 	return _p;
