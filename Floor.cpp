@@ -1,11 +1,18 @@
 #include "Floor.h"
 #include <cstdlib>
 
+#define DEBUG
+
+#ifdef DEBUG
+#include <iostream>
+using namespace std;
+#endif
+
 Floor :: Floor(unsigned int _width, unsigned int _height)
 {
-	tile = (bool *) malloc(width*height*sizeof(bool));	//reservar memoria para el piso
+	tile = (bool *) calloc(width*height, sizeof(bool));	//reservar memoria para el piso, en 0
 
-	if (tile = NULL) {
+	if (tile == NULL) {
 		width = 0;		//si hubo error, registrar que el piso no tiene medidas porque no existe
 		height = 0;
 	}
@@ -31,7 +38,6 @@ bool Floor :: getTileState(unsigned int i, unsigned int j)
 		return false;								//y que los parametros recibidos sean validos
 
 	return tile[i*height+j];						//devolver el parametro pedido
-
 }
 
 
@@ -66,6 +72,10 @@ void Floor :: cleanTile(unsigned int i, unsigned int j)
 		return;										//y que los parametros recibidos sean validos
 
 	tile[i*height + j] = true;	//limpiar la baldosa
+	
+	#ifdef DEBUG
+	cout << "Baldosa " << i << ", " << j << "limpia " << endl;
+	#endif
 }
 
 
