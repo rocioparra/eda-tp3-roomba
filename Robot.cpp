@@ -12,22 +12,34 @@ Robot::Robot(uint _xmax, uint _ymax)
 	return;
 }
 
-void Robot::moveRobotToPoint(const Point& _p)
+bool Robot::moveRobotToPoint(const Point& _p)
 {
-	p.x = _p.x; 
-	p.y = _p.y;
-	return;
+	double c;
+	if( ((c = _p.x) < xmax) && (c>0) && ((c = _p.y)< ymax) && (c > 0))
+	{
+		p.x = _p.x; 
+		p.y = _p.y;
+		return true;
+	}
+	else
+		return false;
 }
 
-void Robot::moveRobot(void)
+bool Robot::moveRobot(void)
 {
-	double _angle;
-	_angle = change2Rad();
-	p.x= p.x + sin(_angle);
-	p.y= p.y + cos(_angle);
+	double _angle, c,d;
+	_angle = changeAngle2Rad();
+	if (((c = p.x + sin(_angle)) < xmax) && (c>0) && ((d = p.y + cos(_angle)) < ymax) && (d>0))
+	{
+		p.x = c;
+		p.y = d;
+		return true;
+	}
+	else
+		return false;
 }
 
-double Robot::change2Rad()		//Funciones que recibe un angulo y lo transforma a radianes.
+double Robot::changeAngle2Rad(void)		//Funciones que recibe un angulo y lo transforma a radianes.
 {
 	double temp;
 	temp = angle* M_PI /180;
@@ -56,4 +68,26 @@ Point Robot::randomPoint(void)
 	_p.x = (rand() % xmax);
 	_p.y = (rand() % ymax);
 	return _p;
+}
+
+bool Robot::getNewAngle(void)
+{
+	double c, d, _angle;
+	_angle = changeAngle2Rad();
+	if (((c = p.x + sin(_angle)) < xmax) && (c>0) && ((d = p.y + cos(_angle)) < ymax) && (d>0))
+		return false;
+	else
+	{
+		srand((uint) time(NULL));
+		angle = (rand() % 360);
+		return true;
+	}
+}
+
+bool Robot::checkEverythingOk(void)
+{
+	if((angle<360) && (angle > 0) && (p.x < xmax) && (p.x > 0) && (p.y <ymax) && (p.y >0))
+		return true;
+	else
+		return false;
 }
