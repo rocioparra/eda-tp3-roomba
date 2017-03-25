@@ -46,17 +46,16 @@ bool Simulation :: nextSimulationStep()
 	ticks++;	//indicar que se hizo otro paso mas
 
 	for (uint i = 0; i<robotCount; i ++) {
-		if (!r[i].getAngle()) { //hace falta cambiar el angulo? si es asi, lo cambia
-			r[i].moveRobot();	//si no, mueve el robot y limpia la baldosa donde queda
+		if (!r[i].checkAngle()) {   //hace falta cambiar el angulo? si es asi, lo cambia
+			r[i].move();			//si no, mueve el robot y limpia la baldosa donde cae
 
-			(*f).cleanTile( unsigned int (r[i].getX()), unsigned int (r[i].getY()));
+			(*f).cleanTile( uint (r[i].getX()), uint (r[i].getY()));
 			//al castear a int se trunca: si x=3,45, y=0,23, el robot esta en la fila
 			//3 y la columna 0 del piso
 		}
 	}
 //if (wantToGraphic...
-
-
+	return !(*f).isDirty();	//devuelve true si el piso esta limpio
 }
 	
 	
@@ -104,5 +103,6 @@ void Simulation :: startGraphing()
 	
 void Simulation :: stopGraphing()
 {
-	wantToGraphic = true;
+	wantToGraphic = false;
 }
+	
