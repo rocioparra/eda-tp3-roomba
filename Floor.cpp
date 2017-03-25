@@ -1,16 +1,14 @@
 #include "Floor.h"
 #include <cstdlib>
 
-#define DEBUG
-
 #ifdef DEBUG
 #include <iostream>
 using namespace std;
 #endif
 
-Floor :: Floor(unsigned int _width, unsigned int _height)
+Floor :: Floor(uint _width, uint _height)
 {
-	tile = (bool *) calloc(width*height, sizeof(bool));	//reservar memoria para el piso, en 0
+	tile = (bool *) calloc(_width*_height, sizeof(bool));	//reservar memoria para el piso, en 0
 
 	if (tile == NULL) {
 		width = 0;		//si hubo error, registrar que el piso no tiene medidas porque no existe
@@ -23,6 +21,10 @@ Floor :: Floor(unsigned int _width, unsigned int _height)
 }
 
 
+#ifdef DEBUG
+Floor :: Floor ()
+{ tile = NULL; width = 0; height =0;}
+#endif
 bool Floor :: isValid()
 {
 	if (tile == NULL)	//verificar que malloc no haya devuelto NULL
@@ -32,7 +34,7 @@ bool Floor :: isValid()
 }
 
 
-bool Floor :: getTileState(unsigned int i, unsigned int j)
+bool Floor :: getTileState(uint i, uint j)
 {
 	if (tile == NULL || i >= width || j >= height )   //verificar que malloc no haya devuelto NULL,
 		return false;								//y que los parametros recibidos sean validos
@@ -41,13 +43,13 @@ bool Floor :: getTileState(unsigned int i, unsigned int j)
 }
 
 
-unsigned int Floor :: getWidth()
+uint Floor :: getWidth()
 {
 	return width;
 }
 
 
-unsigned int Floor :: getHeight()
+uint Floor :: getHeight()
 {
 	return height;
 }
@@ -58,7 +60,7 @@ bool Floor :: isDirty()
 	if (tile == NULL)	//verificar que malloc no ha ya devuelto NULL
 		return false;
 
-	for (unsigned int i = 0; i < width*height; i++)	//recorrer todo el piso
+	for (uint i = 0; i < width*height; i++)	//recorrer todo el piso
 		if (tile[i] == false)
 			return true;		//si encuentra una baldosa sucia, el piso esta sucio
 
@@ -66,7 +68,7 @@ bool Floor :: isDirty()
 }
 
 
-void Floor :: cleanTile(unsigned int i, unsigned int j)
+void Floor :: cleanTile(uint i, uint j)
 {
 	if (tile == NULL || i >= width || j >= height ) //verificar que malloc no haya devuelto NULL,
 		return;										//y que los parametros recibidos sean validos
