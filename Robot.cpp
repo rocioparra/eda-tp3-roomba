@@ -4,17 +4,24 @@
 #include <time.h>
 #define M_PI	3.14159265359
 
-Robot::Robot(uint _xmax, uint _ymax)
+Robot::Robot(void)		//contruye cada robot en default
+{
+	xmax = 0;
+	ymax = 0;
+	angle = DEFAULT_ANGLE;
+}
+
+void Robot::redefRobot(uint _xmax, uint _ymax)		//recontruye cada robot con las variables pasadas y sus respectivos randoms
 {
 	xmax= _xmax;
 	ymax= _ymax;
 	angle = (rand() % 360);
-	moveRobotToPoint(randomPoint());
+	moveToPoint(randomPoint());
 	return;
 }
 
-bool Robot::moveRobotToPoint(Point& _p)
-{
+bool Robot::moveToPoint(Point& _p)		//Mueve al robot a un punto dado del plano, siempre y cuando sea posible
+{										//En caso de no ser posible devuelve false.
 	double c;
 	if( ((c = _p.getX()) < xmax) && (c>0) && ((c = _p.getY())< ymax) && (c > 0))
 	{
@@ -26,7 +33,7 @@ bool Robot::moveRobotToPoint(Point& _p)
 		return false;
 }
 
-bool Robot::moveRobot(void)
+bool Robot::move(void)			//Mueve al robot en una unidad hacia la direccion indicada por el angulo, en caso de no ser posible devuelve un false.
 {
 	double _angle, c,d;
 	_angle = changeAngle2Rad();
@@ -62,7 +69,7 @@ double Robot::getAngle(void)
 	return angle;
 }
 
-Point Robot::randomPoint(void)
+Point Robot::randomPoint(void)		//Genera un punto random del plano
 {
 	Point _p;
 	_p.setX(myRand(xmax));
@@ -70,7 +77,7 @@ Point Robot::randomPoint(void)
 	return _p;
 }
 
-bool Robot::getNewAngle(void)
+bool Robot::checkAngle(void)  //Funcion que genera un nuevo angulo SOLO EN EL CASO DE SER NECESARIO, en caso de no serlo, deja el angulo como estaba.
 {
 	double c, d, _angle;
 	_angle = changeAngle2Rad();
