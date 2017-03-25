@@ -15,7 +15,7 @@ Simulation :: Simulation(uint _robotCount, uint _width, uint _height) //falta gr
 	r = NULL;		//en caso de que haya un error antes de definir los punteros, los ponemos en NULL
 	f = NULL;
 
-	if (_robotCount <= MAX_ROBOTS || _height <= MAX_HEIGHT|| _width <= MAX_WIDTH ) {
+	if (_robotCount <= MAX_ROBOTS && _height <= MAX_HEIGHT && _width <= MAX_WIDTH ) {
 	//primero verificamos que los parametros recibidos sean validos para esta simulacion
 		f = new Floor(_width, _height);
 		if (f != NULL) {					//verificar que se haya podido reservar memoria para el piso
