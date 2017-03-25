@@ -21,10 +21,6 @@ Floor :: Floor(uint _width, uint _height)
 }
 
 
-#ifdef DEBUG
-Floor :: Floor ()
-{ tile = NULL; width = 0; height =0;}
-#endif
 bool Floor :: isValid()
 {
 	if (tile == NULL)	//verificar que malloc no haya devuelto NULL
