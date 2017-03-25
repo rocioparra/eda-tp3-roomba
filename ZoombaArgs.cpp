@@ -9,7 +9,12 @@ int check (char * key, char * value, void * userData);
 
 ZoombaArgs :: ZoombaArgs()
 {
-	callback = check;		//el unico dato que hay que inicializar es el callback!
+	width = 0;	//si alguno de estos valores sigue siendo 0 despues de llamar al parser,
+	height = 0;	//sabremos que ese dato no se recibio (ya que el callback verifica que 
+	robotN = 0;	//el valor recibido no sea 0
+	mode = 0;
+	
+	callback = check;		
 }
 
 
@@ -78,7 +83,12 @@ uint ZoombaArgs :: getHeight()
 
 uint ZoombaArgs :: getMode()
 {
-	return mode;
+	if ( height && width && (mode == 2 || robotN ) )
+	//ambos modos necesitan height y width. Si el modo es 2, robotN puede no estar
+	//esto tambien se cumplira si el modo no se recibio, pero en ese caso mode == 0
+		return mode;
+	else
+		return 0;	//el modo no esta bien: devuelvo 0
 }
 
 
