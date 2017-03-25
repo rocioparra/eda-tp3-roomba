@@ -2,6 +2,7 @@
 #define ROBOT_H
 
 #include "Point.h"
+#define DEFAULT_ANGLE	361
 
 typedef unsigned int uint;
 class Robot
@@ -22,8 +23,14 @@ private:
 	double myRand(uint max);
 	/*Funcion hecha para generar numeros random que no sean enteros.*/
 public:
-	Robot(uint _xmax, uint _ymax);
-	/*Funcion Constructor, inicializa las variables xmax e ymax con los parametros recibidos, y mueve al robor a un punto random del plano.
+	Robot(void);
+	/*Funcion Contructora por defecto, se la usa para inicializar el arreglo de robots, ya que no se puede llamar a un contructor personalizado
+	inicializa:
+		xmax = 0, ymax=0, angle = 361.
+
+	 */
+	void redefRobot(uint _xmax, uint _ymax);
+	/*Funcion reconstructora, inicializa las variables xmax e ymax con los parametros recibidos, y mueve al robor a un punto random del plano.
 	  Se la llama de la siguiente manera:
 	  {
 		...
@@ -32,7 +39,7 @@ public:
 		...
 	  }
 	*/
-	bool moveRobotToPoint(Point& _p);
+	bool moveToPoint(Point& _p);
 	/*Funcion que bien podria ser private:, pero se la deja como publica por si el programador queire inicializar el robot en algun punto en especifico
 	ACLARACION: devuelve true si se pudo inicializar el robot en la posicion indicada, o false si la posicion indicada esta fuera del rango de nuestro plano.
 	Se usa de la siguiente manera:
@@ -40,18 +47,18 @@ public:
 		...
 		Point p;
 		Robot r;
-		if(r.moveRobotToPoint(p) == false)
+		if(r.moveToPoint(p) == false)
 		{
 			printf("No se pudo inicializar el robot en la posicion indicada!\n");
 		}
 	}
 	*/
-	bool getNewAngle(void);
+	bool checkAngle(void);
 	/*Funcion que checkea si es necesario cambiar el angulo, y si es asi, genera un nuevo angulo, y se lo asigna a la variable angle. En caso de no ser necesario
 	cambiar el angulo, deja la variable Angle como estaba.
 	
 	Solo para debug, devuelve false si no fue necesario cambiar Angle, y devuelve true si fue necesario cambiar Angle */
-	bool moveRobot();
+	bool move();
 	/*Funcion que mueve al robot en 1 unidad hacia el angulo donde apunta su direccion(devuelve true si se pudo mover, y false si no se pudo   solo para debug)*/
 	double getX();	//Getter de la posicion en x del robot
 	double getY();	//Getter de la posicion en y de robot
