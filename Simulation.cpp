@@ -38,27 +38,24 @@ bool Simulation :: isValid ()
 
 bool Simulation :: nextSimulationStep()
 {
+	//primero chequear que no se haya terminado previamente y que los punteros esten inicializados
+	//por evaluacion lazy, solo se ejecuta "(*f).isDirty()" si se verifico que f no era NULL
+	if  ( f == NULL || r == NULL || !(*f).isDirty() ) 
+		return true;
+
 	ticks++;	//indicar que se hizo otro paso mas
 
 	for (uint i = 0; i<robotCount; i ++) {
-		if (((double)ticks)%2)
-		{ 
-			r[i].move();
+		if (!r[i].getAngle()) { //hace falta cambiar el angulo? si es asi, lo cambia
+			r[i].moveRobot();	//si no, mueve el robot y limpia la baldosa donde queda
+
 			(*f).cleanTile( unsigned int (r[i].getX()), unsigned int (r[i].getY()));
 			//al castear a int se trunca: si x=3,45, y=0,23, el robot esta en la fila
 			//3 y la columna 0 del piso
 		}
-		else
-			r[i].getNewAngle();	// CAMBIE ESTO PORQUE EL TP DECIA PASO A PASO, ES DECIR QUE UN PASO CHEQUEEN SI LOS ROBOTS PUDEN CAMINAR Y OTRO TICK CAMINEN
-								// NO TODO DE CORRRIDO
 	}
-	//chequeo que no se haya terminado previamente y que los punteros esten inicializados
-	//por evaluacion lazy, solo se ejecuta "(*f).isDirty()" si se verifico que f no era NULL
-	if  ( f == NULL || r == NULL || !(*f).isDirty() ) 
-		return true;		//Esto lo paso al final para que chequee si el piso quedo limpio despues de mover los robots.
-
-	
 //if (wantToGraphic...
+
 
 }
 	
@@ -109,4 +106,3 @@ void Simulation :: stopGraphing()
 {
 	wantToGraphic = true;
 }
-	
