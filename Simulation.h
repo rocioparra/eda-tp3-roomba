@@ -47,7 +47,7 @@ public:
 
 	bool nextSimulationStep();
 	//realiza el siguiente paso de la simulacion e incrementa el tick counter.
-	//devuelve true si el piso ya esta limpio y false si no
+	//devuelve true si el piso ya esta limpio y false si no.
 };
 
 
