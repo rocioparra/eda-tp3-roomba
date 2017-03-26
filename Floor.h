@@ -26,6 +26,7 @@ class Floor
 		de haberse recibido valores de i o j no validos, tambien devuelve false
 	*/
 
+	bool * getFloor();	//devuelve puntero al arreglo de bools que representa el piso
 	uint getWidth();	//devolver las medidas del piso
 	uint getHeight();	//si no se pudo inicializar, esas medidas van a ser 0
 

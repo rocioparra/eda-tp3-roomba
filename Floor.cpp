@@ -39,6 +39,12 @@ bool Floor :: getTileState(uint i, uint j)
 }
 
 
+bool * Floor :: getFloor()
+{
+	return tile;
+}
+
+
 uint Floor :: getWidth()
 {
 	return width;

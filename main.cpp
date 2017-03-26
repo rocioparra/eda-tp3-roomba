@@ -1,61 +1,66 @@
 #ifdef WIN32
 
 #include <iostream>
-#include <stdio.h>
-#include "Floor.h"
-#include "Robot.h"
+#include <chrono>
+#include <string>
 #include "Simulation.h"
-#include "Point.h"
+#include "RoombaArgs.h"
+#include "Graphics.h"
+extern "C" {
 #include "parseCmdLine.h"
-#include "allegro5/allegro.h"
-#include "allegro5/allegro_image.h"
+}
+extern "C" {
+#include "moreString.h"
+}
+
 
 #define MODE1	1
 #define MODE2	2
-#define ERROR	-1
-#define D_WIDTH	640
-#define D_HEIGHT	400
 
-int pCallback(char *, char*, void *);
+using namespace std;
+
+
+int check (char * _key, char * _value, void * userData);
+
+
 
 int main (int argc, char * argv[])
 {
-	RoombaArgs UserData;
-	RoombaArgs * p2UserData;
-	p2UserData = &UserData; 
+	RoombaArgs userData;
+
 	srand(time(NULL));
-	if((parseCmdLine(argc, argv, check, p2UserData)) == ERROR)
+	if((parseCmdLine(argc, argv, check, &userData)) == PARSER_ERROR)
 	{
-		printf("ERROR en el pasaje de parametros! Abort!\n\n");
-		return ERROR;
+		cout << "ERROR en el pasaje de parametros! Abort!" << endl;
+		return -1;
 	}
 
 
-	if(UserData.mode == MODE1)
+	if(userData.getMode() == MODE1)
 	{
-		Graphics g;
-		Simulacion S(UserData.getRobotN(),UserData.getWidth(),UserData.getHeight(), &g);
-		S.startGraphing();
-		while(!S.nextSimulationStep());
-		printf("La simulacion duro: %d\n",S.getTickCount());
-		S.stopGraphing();
+		Graphics g(userData.getWidth(), userData.getHeight());
+		Simulation s (userData.getRobotN(), userData.getWidth(), userData.getHeight(), &g);
+		s.startGraphing();
+		while(!s.nextSimulationStep());
+		cout << "La simulacion duro: " << s.getTickCount() << endl;
+		s.stopGraphing();
 	}
 
-	else if (UserData.mode == MODE2)
+	else if (userData.getMode() == MODE2)
 	{
-		meanTicks[100];
+		ulong meanTicks[100];
 		memset(meanTicks, 0, sizeof(meanTicks));	//Inicializo todo el arreglo en 0
-		for(int robs = 1; robs < 100 && ... ; robs++)
+		for(int robs = 1; robs < 100 ; robs++)		//falta verificar otra cosa
 		{
 			for(int ciclos = 0; ciclos < 1000; ciclos++)
 			{
-				Simulacion S(robs,UserData.getWidth(),UserData.getHeight());
-				while(!S.nextSimulationStep());
-				meanTicks[robs-1] += S.getTickCount();
-				S.destroy();
+				Simulation s(userData.getRobotN(), userData.getWidth(), userData.getHeight(), NULL);
+				while(!s.nextSimulationStep());
+				meanTicks[robs-1] += s.getTickCount();
+				s.destroy();
 			}
 			meanTicks[robs-1] /= 1000;
-			graficoParcial(meanTicks);
+//			graficoParcial(meanTicks);
 		}
 	}
 	return EXIT_SUCCESS;

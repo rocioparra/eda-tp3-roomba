@@ -1,9 +1,7 @@
 #include "RoombaArgs.h"
 #include <string>
 #include <cstdlib>
-extern "C" {
-#include "moreString.h"
-}
+
 
 
 using namespace std;

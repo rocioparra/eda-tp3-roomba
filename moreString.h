@@ -1,9 +1,10 @@
 #ifndef MORE_STRING_H
 #define MORE_STRING_H
 
+#ifndef TRUE 
 #define TRUE	1	//success 
 #define	FALSE	0	//error
-
+#endif
 
 void toLowercase(char * dest, char * origin, unsigned int nMax);
 /*	Function toLowerCase
