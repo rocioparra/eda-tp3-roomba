@@ -13,12 +13,11 @@ class RoombaArgs{
 	uint height;		//alto del piso
 	uint robotN;		//numero de robots que limpian simultaneamente
 	uint mode;			//1: grafica un ciclo de limpieza; 2: saca los ticks promedio para cada n hasta llegar a robotN
-	pCallback callback; //callback que se le debe pasar al parser
+
+
 
   public:
 	RoombaArgs();				//constructor
-
-	pCallback getCallback();	//getters
 	uint getWidth();
 	uint getHeight();
 	uint getMode();

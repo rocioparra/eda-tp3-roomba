@@ -1,6 +1,7 @@
 #include "parseCmdLine.h"
 #include <stdio.h>
 
+
 #define OK 1
 #define ERROR 0
 
@@ -15,6 +16,7 @@
 
 int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 {
+
 	int i = 1, status=OK, parsedArgs = 0;				// i : indice para el arreglo de argumentos.
 	 													// status: flag de error.
 	 													// parsedArgs: contador de argumentos procesados.
@@ -32,6 +34,7 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 			}
 			else
 			{
+
 				status = ERROR;
 			}
        	}
@@ -44,6 +47,7 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 		i++;
     }
     
+
 	if (status == ERROR)
 	{
 		parsedArgs = -1;	//si hubo error, indicarlo al programa
@@ -51,4 +55,5 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 
 
     return parsedArgs;
+
 }

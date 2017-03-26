@@ -1,26 +1,26 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////														
 //																											//
-//		Instituto Tecnológico de Buenos Aires.																//
+//		Instituto TecnolÃ³gico de Buenos Aires.																//
 //														   /////////////// 									//
 //		22.08 - Algoritmos y Estructura de Datos.		  // CALLBACKS //									//
 //														 ///////////////									//	
-//		Trabajo Práctico n° 1.																				//
+//		Trabajo PrÃ¡ctico nÂ° 1.																				//
 //																											//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////														
 //																											//
 //																											//
 //	Consigna: 																								//
 //																											//
-//	Se pide diseñar una librería que procese los argumentos recibidos por línea de 							//										
+//	Se pide diseÃ±ar una librerÃ­a que procese los argumentos recibidos por lÃ­nea de 							//										
 //	comando usando un callback. 																			//
 //																											//
-//	El diseño debe cumplir con las siguientes pautas: 														//
+//	El diseÃ±o debe cumplir con las siguientes pautas: 														//
 //																											//
-//		a. Debe poder procesar opciones. Una opción consiste de dos argumentos: el 							//									
-//		primero comienza con un guion (“-”) y se denomina clave, y el segundo se 							//
+//		a. Debe poder procesar opciones. Una opciÃ³n consiste de dos argumentos: el 							//									
+//		primero comienza con un guion (â€œ-â€) y se denomina clave, y el segundo se 							//
 //		denomina valor. Un ejemplo: webserver -maxclients 4.  												//
 //																											//
-//		b. Debe poder procesar parámetros, que es un argumento aislado que no 								//
+//		b. Debe poder procesar parÃ¡metros, que es un argumento aislado que no 								//
 //		comienza con guion. Un ejemplo: copyfile archivo1.c.												//
 //																											//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,11 +28,12 @@
 //	GRUPO 5																									//
 //																											//
 //	************************************																	//
+
 //	||		AUTORES		 ||  LEGAJO   ||																		//
 //	************************************																	//
-//	|| Álvarez, Lisandro ||  57.771   ||																	//
+//	|| Ãlvarez, Lisandro ||  57.771   ||																	//
 //	|| Lago, Valentina   ||  57.249   ||																	//
-//	|| Parra, Rocío      ||  57.669   ||																	//
+//	|| Parra, RocÃ­o      ||  57.669   ||																	//
 //	************************************																	//
 //																											//
 //	Fecha de entrega: martes 14 de marzo de 2017.															//
@@ -59,6 +60,7 @@ typedef int(*pCallback) (char *, char*, void *);
  *	
  *	- Devuelve:
  *    
+
  *		-> 1, si el contenido recibido es valido.
  *
  *		-> 0, si el contenido recibido es INvalido.

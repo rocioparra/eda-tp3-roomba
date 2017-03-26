@@ -18,6 +18,7 @@ typedef unsigned int uint;
 
 class Graphics
 {
+
 private:
     ALLEGRO_DISPLAY* display = NULL;    
     uint tileSide;              //lado de una baldosa (son cuadradas)
@@ -25,6 +26,7 @@ private:
     uint displayWidth;
     Point getTileCorner(uint i, uint j);            //recibe fila y columna de la baldosa, devuelve el punto de la esquina superior derecha
     ALLEGRO_COLOR getTileColor(Point tileCorner);   //recibe la esquina de la tile y devuelve un color
+
 
 public:
     ALLEGRO_BITMAP* robotBitmap = NULL;
