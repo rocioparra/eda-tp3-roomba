@@ -3,12 +3,12 @@
 
 #include "Robot.h"
 #include "Floor.h"
-//#include "Graphics.h" falta
+#include "Graphics.h" 
 
 //parametros maximos aceptados por esta simulacion
 #define MAX_ROBOTS	100
-#define MAX_WIDTH	20
-#define	MAX_HEIGHT	20
+#define MAX_WIDTH	100
+#define	MAX_HEIGHT	70
 
 typedef unsigned long int ulong; //para simplificar el codigo
 
@@ -26,10 +26,10 @@ class Simulation
 	Floor * f;			//el piso que se esta limpiando
 	Robot * r;			//direccion del primer robot
 	bool wantToGraphic;	//si es true, va a mostrar la simulacion por pantalla
-//	Graphics * graph;
+	Graphics * g;
 
 public:
-	Simulation(uint _robotCount, uint _width, uint _height); //falta graphic
+	Simulation(uint _robotCount, uint _width, uint _height, Graphics * _g); 
 	//recibe la cantidad de robots y el tamano del piso para la simulacion.
 	//si se quiere graficar, recibe un puntero a un objeto graphic
 
@@ -48,6 +48,8 @@ public:
 	bool nextSimulationStep();
 	//realiza el siguiente paso de la simulacion e incrementa el tick counter.
 	//devuelve true si el piso ya esta limpio y false si no.
+
+	void destroy();
 };
 
 

@@ -1,15 +1,18 @@
 #include "Simulation.h"
 #include <new>
+#include <chrono>
+#include <thread>
 
-Simulation :: Simulation(uint _robotCount, uint _width, uint _height) //falta graphic
+
+Simulation :: Simulation(uint _robotCount, uint _width, uint _height, Graphics * _g)
 {
 	ticks = 0;
 	robotCount = _robotCount;
 
-//	if (graphic == NULL)		//si graphic es NULL es porque no hay que graficar
+	if (_g == NULL)		//si graphic es NULL es porque no hay que graficar
 		wantToGraphic = false;
-//	else
-//		wantToGraphic = true;
+	else
+		wantToGraphic = true;
 
 	valid = false;	//empieza como false. Si podemos hacer todo sin errores, ponemos true
 	r = NULL;		//en caso de que haya un error antes de definir los punteros, los ponemos en NULL
@@ -23,6 +26,7 @@ Simulation :: Simulation(uint _robotCount, uint _width, uint _height) //falta gr
 			if (r != NULL)	
 				if ((*f).isValid()) {											//lo mismo para los robots
 					valid = true;						//en este punto, ya se hizo todo el control de error
+					g = _g;
 					for ( uint i = 0; i<robotCount; i++ )					//inicializar todos los robots
 						r[i].redefRobot(_width, _height);
 				}
@@ -54,7 +58,19 @@ bool Simulation :: nextSimulationStep()
 			//3 y la columna 0 del piso
 		}
 	}
-//if (wantToGraphic...
+	if (wantToGraphic)
+	{
+		(*g).drawFloor((*f).getFloor(), (*f).getWidth(), (*f).getHeight());
+
+		for (uint i = 0; i < robotCount; i++) {
+			Point p(r[i].getX(), r[i].getY());
+			(*g).drawRobot(p, r[i].getAngle());
+		}
+
+		(*g).showChanges();
+		std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+	}	
+		
 	return !(*f).isDirty();	//devuelve true si el piso esta limpio
 }
 	
@@ -106,3 +122,10 @@ void Simulation :: stopGraphing()
 	wantToGraphic = false;
 }
 	
+void Simulation :: destroy()
+{
+	delete f;
+	delete r;
+	f = NULL;
+	r = NULL;
+}

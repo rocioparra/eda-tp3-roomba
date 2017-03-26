@@ -1,12 +1,12 @@
 #include "RoombaArgs.h"
 #include <string>
 #include <cstdlib>
-extern "C" {
-#include "moreString.h"
-}
+
 
 
 using namespace std;
+
+int check (char * key, char * value, void * userData);
 
 
 RoombaArgs :: RoombaArgs()

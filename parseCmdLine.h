@@ -44,6 +44,8 @@
 #define PARSECMDLINE_H
 
 
+#define PARSER_ERROR	-1
+
 
 typedef int(*pCallback) (char *, char*, void *);
 /* 
