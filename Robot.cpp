@@ -79,13 +79,12 @@ Point Robot::randomPoint(void)		//Genera un punto random del plano
 
 bool Robot::checkAngle(void)  //Funcion que genera un nuevo angulo SOLO EN EL CASO DE SER NECESARIO, en caso de no serlo, deja el angulo como estaba.
 {
-	double c, d, _angle;
+	double nextX, nextY, _angle;
 	_angle = changeAngle2Rad();
-	if (((c = p.getX() + sin(_angle)) < xmax) && (c>0) && ((d = p.getY() + cos(_angle)) < ymax) && (d>0))
+	if (((nextX = p.getX() + sin(_angle)) < xmax) && (nextX>0) && ((nextY = p.getY() + cos(_angle)) < ymax) && (nextY>0))
 		return false;
 	else
 	{
-		srand((uint) time(NULL));
 		angle = (rand() % 360);
 		return true;
 	}
