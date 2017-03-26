@@ -14,10 +14,9 @@ class RoombaArgs{
 	uint robotN;		//numero de robots que limpian simultaneamente
 	uint mode;			//1: grafica un ciclo de limpieza; 2: saca los ticks promedio para cada n hasta llegar a robotN
 
-
-
   public:
 	RoombaArgs();				//constructor
+
 	uint getWidth();
 	uint getHeight();
 	uint getMode();
