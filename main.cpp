@@ -31,17 +31,17 @@ int main (int argc, char * argv[])
 	}
 
 
-	if(modo == MODE1)
+	if(UserData.mode == MODE1)
 	{
 		Graphics g;
 		Simulacion S(UserData.getRobotN(),UserData.getWidth(),UserData.getHeight(), &g);
 		S.startGraphing();
 		while(!S.nextSimulationStep());
 		printf("La simulacion duro: %d\n",S.getTickCount());
-
+		S.stopGraphing();
 	}
 
-	else if (modo == MODE2)
+	else if (UserData.mode == MODE2)
 	{
 		meanTicks[100];
 		memset(meanTicks, 0, sizeof(meanTicks));	//Inicializo todo el arreglo en 0
@@ -58,11 +58,6 @@ int main (int argc, char * argv[])
 			graficoParcial(meanTicks);
 		}
 	}
-	else
-	{
-		///destruirrrrrr;;;
-	}
-	al_destroy_display(display);
 	return EXIT_SUCCESS;
 }
 
