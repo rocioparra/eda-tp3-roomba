@@ -8,8 +8,6 @@ extern "C" {
 
 using namespace std;
 
-int check (char * key, char * value, void * userData);
-
 
 RoombaArgs :: RoombaArgs()
 {
