@@ -1,11 +1,11 @@
-#ifndef ZOOMBA_ARGS_H
-#define ZOOMBA_ARGS_H
+#ifndef ROOMBA_ARGS_H
+#define ROOMBA_ARGS_H
 
 #include "parseCmdLine.h"
 
 typedef unsigned int uint;
 
-class ZoombaArgs{
+class RoombaArgs{
   private:
 	uint width;			//ancho del piso
 	uint height;		//alto del piso
@@ -14,7 +14,7 @@ class ZoombaArgs{
 	pCallback callback; //callback que se le debe pasar al parser
 
   public:
-	ZoombaArgs();				//constructor
+	RoombaArgs();				//constructor
 
 	pCallback getCallback();	//getters
 	uint getWidth();
@@ -31,4 +31,4 @@ class ZoombaArgs{
 
 
 
-#endif //ZOOMBA_ARGS_H
+#endif //ROOMBA_ARGS_H

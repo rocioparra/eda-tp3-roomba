@@ -1,4 +1,4 @@
-#include "ZoombaArgs.h"
+#include "RoombaArgs.h"
 #include <string>
 #include <cstdlib>
 
@@ -7,7 +7,7 @@ using namespace std;
 int check (char * key, char * value, void * userData);
 
 
-ZoombaArgs :: ZoombaArgs()
+RoombaArgs :: RoombaArgs()
 {
 	width = 0;	//si alguno de estos valores sigue siendo 0 despues de llamar al parser,
 	height = 0;	//sabremos que ese dato no se recibio (ya que el callback verifica que 
@@ -21,7 +21,7 @@ ZoombaArgs :: ZoombaArgs()
 
 int check (char * _key, char * _value, void * userData)
 {
-	if (_key == NULL)		//el programa zoomba solo recibe opciones como argumento
+	if (_key == NULL)		//el programa roomba solo recibe opciones como argumento
 		return false;
 
 	errno = 0;				
@@ -30,7 +30,7 @@ int check (char * _key, char * _value, void * userData)
 		return false;				//como todos los values de este programa son uints > 0 , si es otra cosa es error
 
 	string key(_key);										//pasar a string por simplicidad en el codigo
-	ZoombaArgs * ud = (ZoombaArgs *) userData;				
+	RoombaArgs * ud = (RoombaArgs *) userData;				
 	int status = false;							//status cambiara a true si se verifica que se recibio algo valido
 
 	//	Se procede a verificar que la key sea una de las validas y a guardar el valor donde corresponda.
@@ -63,25 +63,25 @@ int check (char * _key, char * _value, void * userData)
 }
 
 
-pCallback ZoombaArgs :: getCallback()
+pCallback RoombaArgs :: getCallback()
 {
 	return callback;
 }
 
 
-uint ZoombaArgs :: getWidth()
+uint RoombaArgs :: getWidth()
 {
 	return width;
 }
 
 
-uint ZoombaArgs :: getHeight()
+uint RoombaArgs :: getHeight()
 {
 	return height;
 }
 
 
-uint ZoombaArgs :: getMode()
+uint RoombaArgs :: getMode()
 {
 	if ( height && width && (mode == 2 || robotN ) )
 	//ambos modos necesitan height y width. Si el modo es 2, robotN puede no estar
@@ -92,32 +92,32 @@ uint ZoombaArgs :: getMode()
 }
 
 
-uint ZoombaArgs :: getRobotN()
+uint RoombaArgs :: getRobotN()
 {
 	return robotN;
 }
 
 
 
-void ZoombaArgs :: setWidth(uint _width)
+void RoombaArgs :: setWidth(uint _width)
 {
 	width = _width;
 }
 
 
-void ZoombaArgs :: setHeight(uint _height)
+void RoombaArgs :: setHeight(uint _height)
 {
 	height = _height;
 }
 
 
-void ZoombaArgs :: setMode(uint _mode)
+void RoombaArgs :: setMode(uint _mode)
 {
 	mode = _mode;
 }
 
 
-void ZoombaArgs :: setRobotN(uint _robotN)
+void RoombaArgs :: setRobotN(uint _robotN)
 {
 	robotN = _robotN;
 }
