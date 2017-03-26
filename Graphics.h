@@ -9,7 +9,7 @@
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 
-#define TILESIDE 30 //lado de las baldoss, son cuadradas
+#define TILESIDE 30 //lado de las baldosas, son cuadradas
 #define ROBOT_SPRITE "Travolta.png"
 
 typedef unsigned int uint;
@@ -17,8 +17,8 @@ typedef unsigned int uint;
 class Graphics
 {
 private:
-    ALLEGRO_DISPLAY* display = NULL;    
-    ALLEGRO_BITMAP* robotBitmap = NULL;
+    ALLEGRO_DISPLAY* display;    
+    ALLEGRO_BITMAP* robotBitmap;
     uint tileSide;              //lado de una baldosa (son cuadradas)
     uint displayHeight;
     uint displayWidth;
