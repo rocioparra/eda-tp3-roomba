@@ -28,7 +28,7 @@
 //	GRUPO 5																									//
 //																											//
 //	************************************																	//
-//	||		AUTORES		 ||  LEGAJO   ||																	//
+//	||		AUTORES		 ||  LEGAJO   ||																		//
 //	************************************																	//
 //	|| Álvarez, Lisandro ||  57.771   ||																	//
 //	|| Lago, Valentina   ||  57.249   ||																	//
@@ -36,8 +36,6 @@
 //	************************************																	//
 //																											//
 //	Fecha de entrega: martes 14 de marzo de 2017.															//
-//																											//
-//	EDIT TP3 (entrega 30/03/17): en C++, el callback devuelve un bool en lugar de un int.					//
 //																											//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -61,9 +59,9 @@ typedef int(*pCallback) (char *, char*, void *);
  *	
  *	- Devuelve:
  *    
- *		-> true, si el contenido recibido es valido.
+ *		-> 1, si el contenido recibido es valido.
  *
- *		-> false, si el contenido recibido no es valido.
+ *		-> 0, si el contenido recibido es INvalido.
  *
  */
 

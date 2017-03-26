@@ -1,7 +1,9 @@
 #ifndef ROOMBA_ARGS_H
 #define ROOMBA_ARGS_H
 
+extern "C" {
 #include "parseCmdLine.h"
+}
 
 typedef unsigned int uint;
 

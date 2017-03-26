@@ -1,6 +1,10 @@
 #include "RoombaArgs.h"
 #include <string>
 #include <cstdlib>
+extern "C" {
+#include "moreString.h"
+}
+
 
 using namespace std;
 
@@ -24,10 +28,12 @@ int check (char * _key, char * _value, void * userData)
 	if (_key == NULL)		//el programa roomba solo recibe opciones como argumento
 		return false;
 
-	errno = 0;				
-	uint valueNumber = (uint) strtoul(_value, NULL, 10);	//convertir value a un entero no signado en base 10
-	if (!(errno && valueNumber))			//verificar que se la conversion se hizo bien y que el value no era 0												
+	int isUInt;
+
+	uint valueNumber = getUnsInt(_value, &isUInt);
+	if ( !isUInt || valueNumber == 0 )					//verificar que se la conversion se hizo bien y que el value no era 0												
 		return false;				//como todos los values de este programa son uints > 0 , si es otra cosa es error
+									//notese que la func. strtol devolvera 0 si no habia un int
 
 	string key(_key);										//pasar a string por simplicidad en el codigo
 	RoombaArgs * ud = (RoombaArgs *) userData;				
@@ -65,6 +71,7 @@ int check (char * _key, char * _value, void * userData)
 
 pCallback RoombaArgs :: getCallback()
 {
+
 	return callback;
 }
 

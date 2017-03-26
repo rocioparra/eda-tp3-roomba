@@ -1,6 +1,9 @@
 #include "parseCmdLine.h"
 #include <stdio.h>
 
+#define OK 1
+#define ERROR 0
+
 
 ////////////////////////parseCmdLine//////////////////////////////
 //																
@@ -12,12 +15,12 @@
 
 int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 {
-	int i = 1, parsedArgs = 0;							// i : indice para el arreglo de argumentos.
-	bool status = true;									// status: flag de error.
+	int i = 1, status=OK, parsedArgs = 0;				// i : indice para el arreglo de argumentos.
+	 													// status: flag de error.
 	 													// parsedArgs: contador de argumentos procesados.
 	 																	    
 
-	while ( i < argc && status == true )	// El ciclo se ejecuta hasta procesar todos los argumentos o que haya un error.
+	while ( i < argc && status != ERROR )	// El ciclo se ejecuta hasta procesar todos los argumentos o que haya un error.
      {   
        	if( (*(argv[i]) ) == '-' )			// Deteccion del comienzo de una opcion.
        	{  
@@ -29,7 +32,7 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 			}
 			else
 			{
-				status = false;
+				status = ERROR;
 			}
        	}
        	else
@@ -41,7 +44,7 @@ int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
 		i++;
     }
     
-	if (status == false)
+	if (status == ERROR)
 	{
 		parsedArgs = -1;	//si hubo error, indicarlo al programa
 	}
