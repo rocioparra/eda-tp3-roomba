@@ -84,15 +84,39 @@ bool Robot::checkAngle(void)  //Funcion que genera un nuevo angulo SOLO EN EL CA
 	double _angle = changeAngle2Rad();
 	double c= p.getX() + sin(_angle);
 	double d = p.getY() + cos(_angle);
+	bool changed = true;
 
-	if ( c<xmax && c>0 && d<ymax && d>0 )
-		return false;
+	if (c < 0 && d < 0)
+	{
+		angle = (rand() % 90) + 90;	//darle un angulo que seguro sirva
+	}
+	else if ( c>xmax && d>ymax )
+	{
+		angle = (rand() % 90) + 270;
+	}
+	else if ( c<0 )
+	{
+		angle = (rand() % 180) + 90;
+	}
+	else if (d<0)
+	{
+		angle = (rand() % 180);	
+	}
+	else if (c>xmax)
+	{
+		angle = (rand() % 180) - 90;
+		angle = (angle >= 0) ? angle : (360 + angle);
+	}
+	else if (d>ymax)
+	{
+		angle = (rand() % 180) + 180;
+	}
 	else
 	{
-		srand((uint) time(NULL));
-		angle = (rand() % 360);
-		return true;
+		changed = false;
 	}
+
+	return changed;
 }
 
 bool Robot::checkEverythingOk(void)

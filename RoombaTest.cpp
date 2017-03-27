@@ -25,7 +25,7 @@ int main (void)
 
 	test_t test[TEST_NUMBER] =
 	{
-		{9, { {NULL}, {"-Modo"}, {"1"}, {"-Width"}, {"8"}, {"-Height"}, {"8"}, {"-Robots"}, {"2"} }, 0 },	//CORRECTO	
+		{9, { {NULL}, {"-Modo"}, {"1"}, {"-Width"}, {"30"}, {"-Height"}, {"30"}, {"-Robots"}, {"15"} }, 0 },	//CORRECTO	
 		{9, { {NULL}, {"-Modo"}, {"2"}, {"-Width"}, {"4"}, {"-Height"}, {"8"}, {"-Robots"}, {"10"} }, 0 },	//CORRECTO
 		{9, { {NULL}, {"-Modo"}, {"3"}, {"-Width"}, {"4"}, {"-Height"}, {"8"}, {"-Robots"}, {"10"} }, -1 },	//modo no puede ser 3
 		{9, { {NULL}, {"-Modo"}, {"0"}, {"-Width"}, {"4"}, {"-Height"}, {"8"}, {"-Robots"}, {"10"} }, -1 },	//modo no puede ser 0
