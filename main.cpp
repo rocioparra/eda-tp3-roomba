@@ -17,6 +17,11 @@ extern "C" {
 #define MODE1	1
 #define MODE2	2
 
+#define DEBUG
+#ifdef DEBUG
+#include "mainTest.h"
+#endif
+
 using namespace std;
 
 
@@ -24,7 +29,7 @@ int check (char * _key, char * _value, void * userData);
 
 
 
-int main (int argc, char * argv[])
+int main2 (int argc, char * argv[])
 {
 	RoombaArgs userData;
 
@@ -41,7 +46,13 @@ int main (int argc, char * argv[])
 		Graphics g(userData.getWidth(), userData.getHeight());
 		Simulation s (userData.getRobotN(), userData.getWidth(), userData.getHeight(), &g);
 		s.startGraphing();
+
+#ifdef DEBUG
+		while (!s.nextSimulationStep())
+		cout << "Pasos: " << s.getTickCount() << endl;
+#elif
 		while(!s.nextSimulationStep());
+#endif
 		cout << "La simulacion duro: " << s.getTickCount() << endl;
 		s.stopGraphing();
 	}
