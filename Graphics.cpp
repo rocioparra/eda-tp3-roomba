@@ -1,5 +1,7 @@
 #include "Graphics.h"
 
+using namespace std;
+
 Graphics::Graphics(uint xTiles, uint yTiles)
 {
     valid = true;
@@ -28,7 +30,7 @@ Graphics::Graphics(uint xTiles, uint yTiles)
     float screenResX = 1600, screenResY = 900;  //falta averiguar la resolucion del display en ejecucion  
     
     //tamanio de balosa: minimo entre ancho de pantalla/xTiles, alto de pantalla/ytiles, y el maximo establecido en MAXTILESIDE
-    tileSide = std::min( std::min((int)(screenResX/xTiles),(int)(screenResY/yTiles)) , MAXTILESIDE);
+    tileSide = min( min((int)(screenResX/xTiles),(int)(screenResY/yTiles)) , MAXTILESIDE);
 
     //constante por la cual hay que modificar el tamanio del sprite del robot en relacion al tamanio de las baldosas
     resizingFactor = (float)tileSide*ROBOT_TILE_RATIO/(float)al_get_bitmap_width(robotBitmap);
@@ -51,7 +53,7 @@ void Graphics::drawFloor(bool* tiles, int xTiles, int yTiles)//podria no recibir
         {
             Point corner = getTileCorner(i,j);
             
-            if(tiles[ j*xTiles + i ] == true) //si esta limpia
+            if(tiles[ i*yTiles + j ] == true) //si esta limpia
                 //dibujar la baldosa de color
                 al_draw_filled_rectangle(corner.getX(), corner.getY(), corner.getX()+tileSide, corner.getY()+tileSide, getTileColor(corner));
             else    //si esta sucia

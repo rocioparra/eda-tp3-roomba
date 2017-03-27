@@ -25,7 +25,7 @@ private:
 
 public:
     GraphicMode2(uint simRepetition); //inicializa allegro y calcula el tamanio de las barras
-    void drawAllBars(uint barValue[]); //dibuja todas las barras del grafico
+    void drawAllBars(ulong barValue[]); //dibuja todas las barras del grafico
     void showChanges(); //muestra lo dibujado en pantalla
     bool isValid();
 };

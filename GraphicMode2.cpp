@@ -36,9 +36,9 @@
         barAmount = simRepetition;
         barWidth = displayWidth*0.75/(simRepetition + 1); //se agrega uno mas para dejar lugar entre la ultima barra y el fin de la linea
     }
-    void GraphicMode2::drawAllBars(uint barValue[]) //dibuja todas las barras del grafico
+    void GraphicMode2::drawAllBars(ulong barValue[]) //dibuja todas las barras del grafico
     {
-        for(int i = 0; i < barAmount; i++)
+        for(uint i = 0; i < barAmount; i++)
         {
             drawBar(i, barValue[i]);
         }

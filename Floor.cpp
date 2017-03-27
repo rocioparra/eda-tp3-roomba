@@ -1,6 +1,8 @@
 #include "Floor.h"
 #include <cstdlib>
 
+#define DEBUG
+
 #ifdef DEBUG
 #include <iostream>
 using namespace std;
@@ -18,6 +20,8 @@ Floor :: Floor(uint _width, uint _height)
 		width = _width;	//si el piso se pudo crear, guardar su tamano
 		height = _height;
 	}
+
+
 }
 
 
@@ -36,6 +40,12 @@ bool Floor :: getTileState(uint i, uint j)
 		return false;								//y que los parametros recibidos sean validos
 
 	return tile[i*height+j];						//devolver el parametro pedido
+}
+
+
+bool * Floor :: getFloor()
+{
+	return tile;
 }
 
 
@@ -70,10 +80,6 @@ void Floor :: cleanTile(uint i, uint j)
 		return;										//y que los parametros recibidos sean validos
 
 	tile[i*height + j] = true;	//limpiar la baldosa
-	
-	#ifdef DEBUG
-	cout << "Baldosa " << i << ", " << j << "limpia " << endl;
-	#endif
 }
 
 
