@@ -48,11 +48,13 @@ ALLEGRO_COLOR Graphics::getTileColor(Point tileCorner)
 //    return(al_map_rgb(r,g,b));
     return(al_map_rgb(255,255,255));
 }
-void Graphics::drawRobot(Point center, double angle)
+void Graphics::drawRobot(uint xCenter, uint yCenter, double angle)
 {
+
     //no esta bien invocada la funcion todavia
     al_draw_scaled_rotated_bitmap( robotBitmap, al_get_bitmap_width(robotBitmap)/2,
 		al_get_bitmap_height(robotBitmap)/2, tileSide*center.getX(), tileSide*center.getY(), 0.5, 0.5, angle, 0);
+
 }
 void Graphics::drawFloor(bool* tiles, int xTiles, int yTiles)//podria no recibir yTiles pero se lo incluye por claridad
 {   
