@@ -68,7 +68,7 @@ bool Simulation :: nextSimulationStep()
 		}
 
 		(*g).showChanges();
-		std::this_thread::sleep_for(std::chrono::milliseconds(1000/60));
+		std::this_thread::sleep_for(std::chrono::milliseconds(800/60));
 	}	
 		
 	return !(*f).isDirty();	//devuelve true si el piso esta limpio

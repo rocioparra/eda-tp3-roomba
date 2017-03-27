@@ -35,16 +35,18 @@ bool Robot::moveToPoint(Point& _p)		//Mueve al robot a un punto dado del plano, 
 
 bool Robot::move(void)			//Mueve al robot en una unidad hacia la direccion indicada por el angulo, en caso de no ser posible devuelve un false.
 {
-	double _angle, c,d;
-	_angle = changeAngle2Rad();
-	if (((c = (p.getX() + sin(_angle))) < xmax) && (c>0) && ((d = (p.getY() + cos(_angle))) < ymax) && (d>0))
+	double _angle = changeAngle2Rad();
+	double c = p.getX() + sin(_angle);
+	double d = p.getY() + cos(_angle);
+	
+	//if (((c = (p.getX() + sin(_angle))) < xmax) && (c>0) && ((d = (p.getY() + cos(_angle))) < ymax) && (d>0))
 	{
 		p.setX(c);
 		p.setY(d);
 		return true;
 	}
-	else
-		return false;
+	//else
+	//	return false;
 }
 
 double Robot::changeAngle2Rad(void)		//Funciones que recibe un angulo y lo transforma a radianes.
@@ -79,9 +81,11 @@ Point Robot::randomPoint(void)		//Genera un punto random del plano
 
 bool Robot::checkAngle(void)  //Funcion que genera un nuevo angulo SOLO EN EL CASO DE SER NECESARIO, en caso de no serlo, deja el angulo como estaba.
 {
-	double c, d, _angle;
-	_angle = changeAngle2Rad();
-	if (((c = p.getX() + sin(_angle)) < xmax) && (c>0) && ((d = p.getY() + cos(_angle)) < ymax) && (d>0))
+	double _angle = changeAngle2Rad();
+	double c= p.getX() + sin(_angle);
+	double d = p.getY() + cos(_angle);
+
+	if ( c<xmax && c>0 && d<ymax && d>0 )
 		return false;
 	else
 	{

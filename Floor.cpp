@@ -1,6 +1,8 @@
 #include "Floor.h"
 #include <cstdlib>
 
+#define DEBUG
+
 #ifdef DEBUG
 #include <iostream>
 using namespace std;
@@ -18,6 +20,13 @@ Floor :: Floor(uint _width, uint _height)
 		width = _width;	//si el piso se pudo crear, guardar su tamano
 		height = _height;
 	}
+
+#ifdef DEBUG
+	for (uint i = 0; i < width * height; i++)
+		tile [i] = false;
+
+#endif
+
 }
 
 
@@ -61,10 +70,20 @@ bool Floor :: isDirty()
 {
 	if (tile == NULL)	//verificar que malloc no ha ya devuelto NULL
 		return false;
+#ifdef DEBUG
+	uint count = 0;
+	for (uint i = 0; i < width*height; i++)	//recorrer todo el piso
+		if (tile[i] == false)
+			count++;
 
+	cout << "Falta limpiar " << count << endl;
+	if (count>0)
+		return true;
+#elif
 	for (uint i = 0; i < width*height; i++)	//recorrer todo el piso
 		if (tile[i] == false)
 			return true;		//si encuentra una baldosa sucia, el piso esta sucio
+#endif
 
 	return false;				//si no encontro ninguna, el piso no esta sucio
 }
