@@ -1,4 +1,4 @@
-#ifdef WIN32
+//#ifdef WIN32
 
 #include <iostream>
 #include <chrono>
@@ -7,6 +7,7 @@
 #include "RoombaArgs.h"
 #include "Graphics.h"
 #include "GraphicMode2.h"
+#include "myAudio.h"
 extern "C" {
 #include "parseCmdLine.h"
 }
@@ -30,7 +31,7 @@ int check (char * _key, char * _value, void * userData);
 
 
 
-int main2 (int argc, char * argv[])
+int main (int argc, char * argv[])
 {
 	RoombaArgs userData;
 
@@ -45,12 +46,18 @@ int main2 (int argc, char * argv[])
 	if(userData.getMode() == MODE1)
 	{
 		Graphics g(userData.getWidth(), userData.getHeight());
-		Simulation s (userData.getRobotN(), userData.getWidth(), userData.getHeight(), &g);
+                MyAudio a(2);
+                sampleID bgMusic = a.loadSample("DiscoMusic.wav");
+                if(!bgMusic)return 0;
+		Simulation s(userData.getRobotN(), userData.getWidth(), userData.getHeight(), &g);
 		s.startGraphing();
+                a.playSampleLooped(bgMusic);
 
 		while(!s.nextSimulationStep());
-		cout << "La simulacion duro: " << s.getTickCount() << endl;
+                a.stopSamples();
+		g.showTickCount(s.getTickCount());
 		s.stopGraphing();
+                g.destructor();
 	}
 
 	else if (userData.getMode() == MODE2)
@@ -135,4 +142,4 @@ int check (char * _key, char * _value, void * userData)
 	return status;
 }
 
-#endif	//WIN32
+//#endif	//WIN32

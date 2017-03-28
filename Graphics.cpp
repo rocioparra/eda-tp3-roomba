@@ -9,18 +9,20 @@ Graphics::Graphics(uint xTiles, uint yTiles)
     {
         valid = false;
     }
-    if(!al_init_primitives_addon())
+    else if(!al_init_primitives_addon())
     {
         valid = false;
     }
-    if(!al_init_image_addon())
+    else if(!al_init_image_addon())
     {
     	al_shutdown_primitives_addon();
         valid = false;
     }
     
-    robotBitmap = al_load_bitmap("Travolta.png");
-    if(robotBitmap == NULL)
+    if (valid)
+        robotBitmap = al_load_bitmap("Travolta.png");
+    
+    if(robotBitmap == nullptr)
     {
         al_shutdown_primitives_addon();
         al_shutdown_image_addon();
@@ -38,7 +40,7 @@ Graphics::Graphics(uint xTiles, uint yTiles)
     if(valid)
         display = al_create_display(tileSide*xTiles, tileSide*yTiles);
     
-    if(!display)
+    if(display == nullptr)
     {
         al_shutdown_primitives_addon();
         al_shutdown_image_addon();
@@ -89,7 +91,27 @@ ALLEGRO_COLOR Graphics::getTileColor(Point tileCorner)
     //que deberian tener para parecer sucias 0
     return(al_map_rgb( 127 + (unsigned char)(i-100*j*j)/2 , 127 + (100*i*i - j)/2 , 127 + (100*i - 67*j)/2));
 }
+void Graphics::showTickCount(uint tickCount)
+{
+    char tickCountA[100];       //arreglo para uardar el codigo ascii del tickCount
+    snprintf( tickCountA, sizeof(tickCountA), "%d", tickCount );    //generar el string de tickCount
+    
+    al_show_native_message_box(
+    NULL,
+    "Fiebre de sabado por la noche",
+    "Tu fiebre de sabado por la noche llego a los siguientes grados:",
+    tickCountA,
+    "close",
+    ALLEGRO_MESSAGEBOX_OK_CANCEL);
+}
 bool Graphics::isValid()
 {
     return valid;
+}
+void Graphics::destructor()
+{
+    al_destroy_bitmap(robotBitmap);
+    al_destroy_display(display);
+    al_shutdown_image_addon();
+    al_shutdown_primitives_addon();
 }

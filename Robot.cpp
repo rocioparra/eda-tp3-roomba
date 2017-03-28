@@ -16,7 +16,8 @@ void Robot::redefRobot(uint _xmax, uint _ymax)		//recontruye cada robot con las 
 	xmax= _xmax;
 	ymax= _ymax;
 	angle = (rand() % 360);
-	moveToPoint(randomPoint());
+        Point random = randomPoint();
+	moveToPoint(random);
 	return;
 }
 
