@@ -45,10 +45,9 @@ bool Simulation :: isValid ()
 
 bool Simulation :: nextSimulationStep()
 {
-	//primero chequear que no se haya terminado previamente y que los punteros esten inicializados
-	//por evaluacion lazy, solo se ejecuta "(*f).isDirty()" si se verifico que f no era NULL
-	if  ( f == NULL || r == NULL || !(*f).isDirty() ) 
-		return true;
+	//primero chequea que la simulacion se haya inicializado bien
+	if  ( valid == false || f == NULL || r == NULL ) 
+		return true;	//devuelve true para que no se ejecuten mas pasos
 
 	ticks++;	//indicar que se hizo otro paso mas
 

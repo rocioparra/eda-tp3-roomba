@@ -18,7 +18,7 @@ class Floor
 
 	bool isValid(); //para chequear si el contructor se hizo bien
 
-	bool getTileState(uint i, uint j);
+	bool getTileState(uint32_t i, uint32_t j);
 	/*	getTileState:
 		devuelve el estado de la baldosa especificada (fila i, columna j)
 		el estado puede ser limpio o sucio, indicado por true y false respectivamente
@@ -33,7 +33,7 @@ class Floor
 	//devuelve true si hay al menos una baldosa sucia, false si todas estan limpias
 	//si se trato de usar para un piso que no se habia podido inicializar, tambien devuelve false
 
-	void cleanTile(uint i, uint j);
+	void cleanTile(uint32_t i, uint32_t j);
 	//limpia la baldosa especificada, a menos que se reciban valores de i o j (fila, columna) no validos,
 	//en cuyo caso no hara nada
 

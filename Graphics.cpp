@@ -1,4 +1,5 @@
 #include "Graphics.h"
+//#include <cstdio>
 
 using namespace std;
 
@@ -94,13 +95,13 @@ ALLEGRO_COLOR Graphics::getTileColor(Point tileCorner)
 void Graphics::showTickCount(uint32_t tickCount)
 {
     char tickCountA[100];       //arreglo para uardar el codigo ascii del tickCount
-    snprintf( tickCountA, sizeof(tickCountA), "%d", tickCount );    //generar el string de tickCount
+//    snprintf( tickCountA, sizeof(tickCountA), "%d", tickCount );    //generar el string de tickCount
     
     al_show_native_message_box(
     NULL,
     "Fiebre de sabado por la noche",
     "Tu fiebre de sabado por la noche llego a los siguientes grados:",
-    tickCountA,
+    "CAMBIAR ESTO",
     "close",
     ALLEGRO_MESSAGEBOX_OK_CANCEL);
 }

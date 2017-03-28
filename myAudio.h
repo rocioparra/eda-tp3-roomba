@@ -6,13 +6,14 @@
 #include <allegro5/allegro_acodec.h>
 
 #define SONGFILE1 "DiscoMusic.wav"  //archivo del audio que se reproduce durante la simulacion del modo uno
+#define MAX_SAMPLES	3
 
 typedef unsigned int uint;
 typedef ALLEGRO_SAMPLE* sampleID;   //sirve para tener un mayor nivel de abstraccion de allegro
 
 class MyAudio{
 private:
-    sampleID loadedSamples[];       //Se agrega por escalabilidad y para destruir los samples al finalizar el programa
+    sampleID loadedSamples[MAX_SAMPLES];       //Se agrega por escalabilidad y para destruir los samples al finalizar el programa
     uint samplesStored;
     bool valid;
 public:

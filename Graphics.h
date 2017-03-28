@@ -35,7 +35,7 @@ public:
     void drawRobot(float xCenter, float yCenter, double angle);  //dibuja un robot en el punto center con el angulo angle
     void drawFloor(bool* tiles, uint32_t i, uint32_t j);   //dibuja el piso con los colores correspondientes a sucio y limpio
     void showChanges();                          //muestra lo dibujado en pantalla
-    void showTickCount(uint);
+    void showTickCount(uint32_t);
     bool isValid();
     void destructor();
 };

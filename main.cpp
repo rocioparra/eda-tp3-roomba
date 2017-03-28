@@ -1,9 +1,8 @@
-//#ifdef WIN32
-
 #include <iostream>
 #include <chrono>
 #include <string>
 #include <stdint.h>
+
 #include "Simulation.h"
 #include "RoombaArgs.h"
 #include "Graphics.h"
@@ -39,7 +38,7 @@ int32_t check (char * _key, char * _value, void * userData);
 
 
 
-int32_t main (int32_t argc, char * argv[])
+int32_t main2 (int32_t argc, char * argv[])
 {
 	RoombaArgs userData;
 
@@ -51,37 +50,53 @@ int32_t main (int32_t argc, char * argv[])
 	}
 
 
+
+
 	if(userData.getMode() == GRAPHIC)
 	{
 		Graphics g(userData.getWidth(), userData.getHeight());
-                MyAudio a(2);
-                sampleID bgMusic = a.loadSample("DiscoMusic.wav");
+        MyAudio a(2);
+        sampleID bgMusic = a.loadSample("DiscoMusic.wav");
+		Simulation s(userData.getRobotN(), userData.getWidth(), userData.getHeight(), &g);
+
+		if( bgMusic == NULL ) {
+			cout << "Error: could not load audio sample" << endl;
+			return -1;
+		}
+		else if ( !g.isValid() ) {
+			cout << "Error: allegro was not properly initialized" << endl;
+			return -1;
+		}
+		else if ( !s.isValid() ) {
+			cout << "Error: parameters exceeded the maximum (0<width<=100, 0<height <=70, 0<robots, mode = 1 or mode =2)" << endl;
+			return -1;
+		}
+		
 		a.playSampleLooped(bgMusic);
 
-		if(bgMusic == NULL || !s.isValid())
-			return -1;
-				
 		while(!s.nextSimulationStep());
                 
 		a.stopSamples();
 		g.showTickCount(s.getTickCount());
 		s.destroy();
-                g.destructor();
+        g.destructor();
 	}
 
 	else if (userData.getMode() == AVERAGE)
 	{
-		double meanTicks[100];
-		uint32_t n;
-		memset(meanTicks, 0, sizeof(meanTicks));	//Inicializo todo el arreglo en 0
+		double meanTicks[MAX_ROBOTS];				//promedios
+		uint32_t n, i;								//contadores: robots, ciclos
+		memset(meanTicks, 0, sizeof(meanTicks));	//inicializo todo el arreglo en 0
 
 		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++)
 		{
-			for(ciclos = 0; ciclos < CICLES; ciclos++)
+			for(i = 0; i < CICLES; i++)
 			{
 				Simulation s(n+1, userData.getWidth(), userData.getHeight(), NULL);
-				if(!s.isValid())
+				if ( !s.isValid() ) {
+					cout << "Error: parameters exceeded the maximum (0<width<=100, 0<height <=70, 0<robots, mode = 1 or mode =2)" << endl;
 					return -1;
+				}
 				
 				while(!s.nextSimulationStep());
 				meanTicks[n] += double (s.getTickCount());
@@ -92,9 +107,15 @@ int32_t main (int32_t argc, char * argv[])
 		}
 
 		GraphicMode2 g(n);
+		if ( !g.isValid() ) {
+			cout << "Error: allegro was not properly initialized" << endl;
+			return -1;
+		}
+
 		g.drawAllBars(meanTicks);
 		g.showChanges();
 	}
+
 	return EXIT_SUCCESS;
 }
 
@@ -146,4 +167,3 @@ int32_t check (char * _key, char * _value, void * userData)
 	return status;
 }
 
-//#endif	//WIN32
