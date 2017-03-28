@@ -2,13 +2,14 @@
 #define GRAPHICS_H
 
 #include "Point.h"
-#include <stdint.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <algorithm>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> 
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_native_dialog.h>
 
 #define MAXTILESIDE 200    //maximo medida que puede tomar el lado de una baldosa
 #define ROBOT_SPRITE "Travolta.png"
@@ -32,9 +33,10 @@ public:
     ALLEGRO_BITMAP* robotBitmap;
     Graphics(uint32_t xTiles, uint32_t yTiles);          //inicializa allegro y calcula el tamanio de las baldosas
     void drawRobot(float xCenter, float yCenter, double angle);  //dibuja un robot en el punto center con el angulo angle
-    void drawFloor(bool* tiles, int32_t i, int32_t j);   //dibuja el piso con los colores correspondientes a sucio y limpio
+    void drawFloor(bool* tiles, uint32_t i, uint32_t j);   //dibuja el piso con los colores correspondientes a sucio y limpio
     void showChanges();                          //muestra lo dibujado en pantalla
+    void showTickCount(uint);
     bool isValid();
+    void destructor();
 };
 #endif /* GRAPHICS_H */
-    
