@@ -1,31 +1,31 @@
 #ifndef ROOMBA_ARGS_H
 #define ROOMBA_ARGS_H
+#include <stdint.h>
 
 extern "C" {
 #include "parseCmdLine.h"
 }
 
-typedef unsigned int uint;
 
 class RoombaArgs{
-  private:
-	uint width;			//ancho del piso
-	uint height;		//alto del piso
-	uint robotN;		//numero de robots que limpian simultaneamente
-	uint mode;			//1: grafica un ciclo de limpieza; 2: saca los ticks promedio para cada n hasta llegar a robotN
+private:
+	uint32_t width;			//ancho del piso
+	uint32_t height;		//alto del piso
+	uint32_t robotN;		//numero de robots que limpian simultaneamente
+	uint32_t mode;			//1: grafica un ciclo de limpieza; 2: saca los ticks promedio para cada n hasta llegar a robotN
 
-  public:
+public:
 	RoombaArgs();				//constructor
 
-	uint getWidth();
-	uint getHeight();
-	uint getMode();
-	uint getRobotN();
+	uint32_t getWidth();
+	uint32_t getHeight();
+	uint32_t getMode();
+	uint32_t getRobotN();
 
-	void setWidth(uint);		//setters
-	void setHeight(uint);
-	void setMode(uint);
-	void setRobotN(uint);
+	void setWidth(uint32_t);		//setters
+	void setHeight(uint32_t);
+	void setMode(uint32_t);
+	void setRobotN(uint32_t);
 
 };
 

@@ -1,4 +1,5 @@
 #include <iostream> 
+#include <stdint.h>
 #include "mainTest.h"
 
 using namespace std;
@@ -8,19 +9,18 @@ using namespace std;
 #define	MAX_ARG_LEN		10	// Long. max. de cada argumento incluido en los tests.
 
 /* Estructura parserTest_t: informacion de cada uno de los tests que se realizaran */
-typedef unsigned int uint;
 typedef struct
 {
-	int argc;							// argc no debe tener errores, no es generado por el usuario
+	int32_t argc;							// argc no debe tener errores, no es generado por el usuario
 	char * argv[MAX_ARGC];	// El primer elemento corresponderia al nombre del archivo, se ignorara
-	int shouldReturn;				// opciones + parametros
+	int32_t shouldReturn;				// opciones + parametros
 }test_t;
 
 
 int main (void)
 {
-	uint i,j;
-	int parsedArgs;
+	uint32_t i,j;
+	int32_t parsedArgs;
 
 
 	test_t test[TEST_NUMBER] =

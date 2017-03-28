@@ -1,5 +1,6 @@
 #include "parseCmdLine.h"
 #include <stdio.h>
+#include <stdint.h>
 
 
 #define OK 1
@@ -14,10 +15,10 @@
 //																
 //////////////////////////////////////////////////////////////////
 
-int parseCmdLine(int argc, char *argv[], pCallback p, void *userData)
+int32_t parseCmdLine(int32_t argc, char *argv[], pCallback p, void *userData)
 {
 
-	int i = 1, status=OK, parsedArgs = 0;				// i : indice para el arreglo de argumentos.
+	int32_t i = 1, status=OK, parsedArgs = 0;				// i : indice para el arreglo de argumentos.
 	 													// status: flag de error.
 	 													// parsedArgs: contador de argumentos procesados.
 	 																	    

@@ -1,5 +1,6 @@
 #include "Floor.h"
 #include <cstdlib>
+#include <stdint.h>
 
 #define DEBUG
 
@@ -8,7 +9,7 @@
 using namespace std;
 #endif
 
-Floor :: Floor(uint _width, uint _height)
+Floor :: Floor(uint32_t _width, uint32_t _height)
 {
 	tile = (bool *) calloc(_width*_height, sizeof(bool));	//reservar memoria para el piso, en 0
 
@@ -34,7 +35,7 @@ bool Floor :: isValid()
 }
 
 
-bool Floor :: getTileState(uint i, uint j)
+bool Floor :: getTileState(uint32_t i,uint32_t j)
 {
 	if (tile == NULL || i >= width || j >= height )   //verificar que malloc no haya devuelto NULL,
 		return false;								//y que los parametros recibidos sean validos
@@ -49,13 +50,13 @@ bool * Floor :: getFloor()
 }
 
 
-uint Floor :: getWidth()
+uint32_t Floor :: getWidth()
 {
 	return width;
 }
 
 
-uint Floor :: getHeight()
+uint32_t Floor :: getHeight()
 {
 	return height;
 }
@@ -66,7 +67,7 @@ bool Floor :: isDirty()
 	if (tile == NULL)	//verificar que malloc no ha ya devuelto NULL
 		return false;
 
-	for (uint i = 0; i < width*height; i++)	//recorrer todo el piso
+	for (uint32_t i = 0; i < width*height; i++)	//recorrer todo el piso
 		if (tile[i] == false)
 			return true;		//si encuentra una baldosa sucia, el piso esta sucio
 
@@ -74,7 +75,7 @@ bool Floor :: isDirty()
 }
 
 
-void Floor :: cleanTile(uint i, uint j)
+void Floor :: cleanTile(uint32_t i, uint32_t j)
 {
 	if (tile == NULL || i >= width || j >= height ) //verificar que malloc no haya devuelto NULL,
 		return;										//y que los parametros recibidos sean validos

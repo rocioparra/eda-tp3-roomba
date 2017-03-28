@@ -2,11 +2,12 @@
 #include <new>
 #include <chrono>
 #include <thread>
+#include <stdint.h>
 
 #define FPS(x)	(1000/(x))
 
 
-Simulation :: Simulation(uint _robotCount, uint _width, uint _height, Graphics * _g)
+Simulation :: Simulation(uint32_t _robotCount, uint32_t _width, uint32_t _height, Graphics * _g)
 {
 	ticks = 0;
 	robotCount = _robotCount;
@@ -29,7 +30,7 @@ Simulation :: Simulation(uint _robotCount, uint _width, uint _height, Graphics *
 				if ((*f).isValid()) {											//lo mismo para los robots
 					valid = true;						//en este punto, ya se hizo todo el control de error
 					g = _g;
-					for ( uint i = 0; i<robotCount; i++ )					//inicializar todos los robots
+					for ( uint32_t i = 0; i<robotCount; i++ )					//inicializar todos los robots
 						r[i].redefRobot(_width, _height);
 				}
 		}
@@ -51,11 +52,11 @@ bool Simulation :: nextSimulationStep()
 
 	ticks++;	//indicar que se hizo otro paso mas
 
-	for (uint i = 0; i<robotCount; i ++) {
+	for (uint32_t i = 0; i<robotCount; i ++) {
 		if (!r[i].checkAngle()) {   //hace falta cambiar el angulo? si es asi, lo cambia
 			r[i].move();			//si no, mueve el robot y limpia la baldosa donde cae
 
-			(*f).cleanTile( uint (r[i].getX()), uint (r[i].getY()));
+			(*f).cleanTile(uint32_t (r[i].getX()),uint32_t (r[i].getY()));
 			//al castear a int se trunca: si x=3,45, y=0,23, el robot esta en la fila
 			//3 y la columna 0 del piso
 		}
@@ -64,7 +65,7 @@ bool Simulation :: nextSimulationStep()
 	{
 		(*g).drawFloor((*f).getFloor(), (*f).getWidth(), (*f).getHeight());
 
-		for (uint i = 0; i < robotCount; i++) {
+		for (uint32_t i = 0; i < robotCount; i++) {
 			(*g).drawRobot(r[i].getX(), r[i].getY(), r[i].getAngle());
 		}
 
@@ -82,13 +83,13 @@ ulong Simulation :: getTickCount()
 }
 	
 	
-uint Simulation :: getRobotCount()
+uint32_t Simulation :: getRobotCount()
 {
 	return robotCount;
 }
 	
 	
-uint Simulation :: getFloorWidth()
+uint32_t Simulation :: getFloorWidth()
 {
 	if (f == NULL)	//si no esta inicializado f, el piso no tiene ancho porque no existe
 		return 0;
@@ -97,7 +98,7 @@ uint Simulation :: getFloorWidth()
 }
 	
 	
-uint Simulation :: getFloorHeight()
+uint32_t Simulation :: getFloorHeight()
 {
 	if (f == NULL)	//si no esta inicializado f, el piso no tiene alto porque no existe
 		return 0;

@@ -1,20 +1,19 @@
 #ifndef FLOOR_H
 #define FLOOR_H
-
+#include <stdint.h>
 //#define DEBUG
 
-typedef unsigned int uint;	//para simplificar el codigo
 
 class Floor
 {
   private:
 	bool * tile;		//arreglo de baldosas
-	uint width;	//dimensiones del arreglo
-	uint height;
+	uint32_t width;	//dimensiones del arreglo
+	uint32_t height;
 
   public:
   
-	Floor(uint _width, uint _height);
+	Floor(uint32_t _width, uint32_t _height);
 	//las medidas deben explicitarse. inicializa todo como false, que indica sucio
 
 	bool isValid(); //para chequear si el contructor se hizo bien
@@ -27,8 +26,8 @@ class Floor
 	*/
 
 	bool * getFloor();	//devuelve puntero al arreglo de bools que representa el piso
-	uint getWidth();	//devolver las medidas del piso
-	uint getHeight();	//si no se pudo inicializar, esas medidas van a ser 0
+	uint32_t getWidth();	//devolver las medidas del piso
+	uint32_t getHeight();	//si no se pudo inicializar, esas medidas van a ser 0
 
 	bool isDirty();
 	//devuelve true si hay al menos una baldosa sucia, false si todas estan limpias

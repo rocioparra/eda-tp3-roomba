@@ -42,12 +42,13 @@
 
 #ifndef PARSECMDLINE_H
 #define PARSECMDLINE_H
+#include <stdint.h>
 
 
 #define PARSER_ERROR	-1
 
 
-typedef int(*pCallback) (char *, char*, void *);
+typedef int32_t(*pCallback) (char *, char*, void *);
 /* 
  *  El callback que recibe el parser:
  *
@@ -70,7 +71,7 @@ typedef int(*pCallback) (char *, char*, void *);
  */
 
 
-int parseCmdLine(int argc, char *argv[], pCallback p, void *userData);
+int32_t parseCmdLine(int32_t argc, char *argv[], pCallback p, void *userData);
 /*  
  *  Parser de linea de comando:
  *

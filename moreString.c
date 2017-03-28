@@ -1,11 +1,12 @@
 #include "moreString.h"
 #include <string.h>
 #include <ctype.h>
+#include <stdint.h>
 #include <stdlib.h>
 
-void toLowercase(char *  dest, char * origin, unsigned int max)
+void toLowercase(char *  dest, char * origin, uint32_t max)
 {
-	unsigned int i = 0;
+	uint32_t i = 0;
 
 	while (origin[i] != 0 && i < max)
 	//recorrer el string hasta el final o hasta haber copiado el maximo
@@ -18,9 +19,9 @@ void toLowercase(char *  dest, char * origin, unsigned int max)
 }
 
 
-float getFloat(char * string, int * errorFlag)
+float getFloat(char * string, int32_t * errorFlag)
 {
-	unsigned int i = 0,	pointFlag = FALSE;	//indice, flag de punto
+	uint32_t i = 0,	pointFlag = FALSE;	//indice, flag de punto
 	*errorFlag = TRUE;		//se comienza en true, si hay error pasa a false
 
 	if ( string[i] == '-' ) //el primer caracter puede ser un menos
@@ -54,9 +55,9 @@ float getFloat(char * string, int * errorFlag)
 }
 
 
-unsigned int getUnsInt(char * string, int * errorFlag)
+uint32_t getUnsInt(char * string, int32_t * errorFlag)
 {
-	unsigned int i = 0;
+	uint32_t i = 0;
 	*errorFlag = TRUE;
 
 	if(!isdigit(string[i++]))	//verificar que haya al menos un digito
@@ -71,7 +72,7 @@ unsigned int getUnsInt(char * string, int * errorFlag)
 		i++;
 	}
 	
-	return (unsigned int)atoi(string); //convertir el string (si hay error se devuelve basura)
+	return (uint32_t)atoi(string); //convertir el string (si hay error se devuelve basura)
 }
 
 

@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdint.h>
 #define M_PI	3.14159265359
 
 Robot::Robot(void)		//contruye cada robot en default
@@ -11,13 +12,12 @@ Robot::Robot(void)		//contruye cada robot en default
 	angle = DEFAULT_ANGLE;
 }
 
-void Robot::redefRobot(uint _xmax, uint _ymax)		//recontruye cada robot con las variables pasadas y sus respectivos randoms
+void Robot::redefRobot(uint32_t _xmax, uint32_t _ymax)		//recontruye cada robot con las variables pasadas y sus respectivos randoms
 {
 	xmax= _xmax;
 	ymax= _ymax;
 	angle = (rand() % 360);
-        Point random = randomPoint();
-	moveToPoint(random);
+	moveToPoint(randomPoint());
 	return;
 }
 
@@ -99,7 +99,7 @@ bool Robot::checkEverythingOk(void)
 		return false;
 }
 
-double Robot::myRand(uint max)
+double Robot::myRand(uint32_t max)
 {
 	return (((double)rand())/(RAND_MAX/max));
 }

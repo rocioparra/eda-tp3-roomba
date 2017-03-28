@@ -1,12 +1,13 @@
 #ifndef MORE_STRING_H
 #define MORE_STRING_H
+#include <stdint.h>
 
 #ifndef TRUE 
 #define TRUE	1	//success 
 #define	FALSE	0	//error
 #endif
 
-void toLowercase(char * dest, char * origin, unsigned int nMax);
+void toLowercase(char * dest, char * origin, uint32_t nMax);
 /*	Function toLowerCase
 
 	Copies up to nMax characters from the origin string to the dest string. Any uppercase
@@ -15,8 +16,8 @@ as-is. Origin will not be modified in either case.
 	Note that nMax does NOT include the string terminator, which will be added at the end
 regardless of whether all of origin could be copied before reaching nMax or not. */
 
-float getFloat(char * string, int * errorFlag);
-unsigned int getUnsInt(char * string, int * errorFlag);
+float getFloat(char * string, int32_t * errorFlag);
+uint32_t getUnsInt(char * string, int32_t * errorFlag);
 /*	Functions getFloat and getUnsInt
 	
 	Returns the float / unsigned int contained in the string. If the string did not contain

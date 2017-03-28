@@ -1,12 +1,12 @@
 #include "RoombaArgs.h"
 #include <string>
 #include <cstdlib>
-
+#include <stdint.h>
 
 
 using namespace std;
 
-int check (char * key, char * value, void * userData);
+int32_t check (char * key, char * value, void * userData);
 
 
 RoombaArgs :: RoombaArgs()
@@ -17,19 +17,19 @@ RoombaArgs :: RoombaArgs()
 	mode = 0;
 }
 
-uint RoombaArgs :: getWidth()
+uint32_t RoombaArgs :: getWidth()
 {
 	return width;
 }
 
 
-uint RoombaArgs :: getHeight()
+uint32_t RoombaArgs :: getHeight()
 {
 	return height;
 }
 
 
-uint RoombaArgs :: getMode()
+uint32_t RoombaArgs :: getMode()
 {
 	if ( height && width && (mode == 2 || robotN ) )
 	//ambos modos necesitan height y width. Si el modo es 2, robotN puede no estar
@@ -40,32 +40,32 @@ uint RoombaArgs :: getMode()
 }
 
 
-uint RoombaArgs :: getRobotN()
+uint32_t RoombaArgs :: getRobotN()
 {
 	return robotN;
 }
 
 
 
-void RoombaArgs :: setWidth(uint _width)
+void RoombaArgs :: setWidth(uint32_t _width)
 {
 	width = _width;
 }
 
 
-void RoombaArgs :: setHeight(uint _height)
+void RoombaArgs :: setHeight(uint32_t _height)
 {
 	height = _height;
 }
 
 
-void RoombaArgs :: setMode(uint _mode)
+void RoombaArgs :: setMode(uint32_t _mode)
 {
 	mode = _mode;
 }
 
 
-void RoombaArgs :: setRobotN(uint _robotN)
+void RoombaArgs :: setRobotN(uint32_t _robotN)
 {
 	robotN = _robotN;
 }
