@@ -1,5 +1,4 @@
 #include "Graphics.h"
-#include <stdint.h>
 
 using namespace std;
 
