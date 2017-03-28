@@ -10,18 +10,20 @@ Graphics::Graphics(uint32_t xTiles, uint32_t yTiles)
     {
         valid = false;
     }
-    if(!al_init_primitives_addon())
+    else if(!al_init_primitives_addon())
     {
         valid = false;
     }
-    if(!al_init_image_addon())
+    else if(!al_init_image_addon())
     {
     	al_shutdown_primitives_addon();
         valid = false;
     }
     
-    robotBitmap = al_load_bitmap("Travolta.png");
-    if(robotBitmap == NULL)
+    if (valid)
+        robotBitmap = al_load_bitmap("Travolta.png");
+    
+    if(robotBitmap == nullptr)
     {
         al_shutdown_primitives_addon();
         al_shutdown_image_addon();
@@ -31,7 +33,7 @@ Graphics::Graphics(uint32_t xTiles, uint32_t yTiles)
     float screenResX = 1600, screenResY = 900;  //falta averiguar la resolucion del display en ejecucion  
     
     //tamanio de balosa: minimo entre ancho de pantalla/xTiles, alto de pantalla/ytiles, y el maximo establecido en MAXTILESIDE
-    tileSide = min( min((int32_t)(screenResX/xTiles),(int32_t)(screenResY/yTiles)) , MAXTILESIDE);
+    tileSide = min( min((uint32_t)(screenResX/xTiles),(uint32_t)(screenResY/yTiles)) , MAXTILESIDE);
 
     //constante por la cual hay que modificar el tamanio del sprite del robot en relacion al tamanio de las baldosas
     resizingFactor = (float)tileSide*ROBOT_TILE_RATIO/(float)al_get_bitmap_width(robotBitmap);
@@ -39,18 +41,18 @@ Graphics::Graphics(uint32_t xTiles, uint32_t yTiles)
     if(valid)
         display = al_create_display(tileSide*xTiles, tileSide*yTiles);
     
-    if(!display)
+    if(display == nullptr)
     {
         al_shutdown_primitives_addon();
         al_shutdown_image_addon();
         valid = false;
     }
 }
-void Graphics::drawFloor(bool* tiles, int32_t xTiles, int32_t yTiles)//podria no recibir yTiles pero se lo incluye por claridad
+void Graphics::drawFloor(bool* tiles, uint32_t xTiles, uint32_t yTiles)//podria no recibir yTiles pero se lo incluye por claridad
 {   
-    for(int32_t j = 0; j < yTiles ; j++ )  //recorrer todas las filas
+    for( uint32_t j = 0; j < yTiles ; j++ )  //recorrer todas las filas
     {
-        for( int32_t i = 0; i < xTiles ; i++ )  //recorrer todas las columnas
+        for( uint32_t i = 0; i < xTiles ; i++ )  //recorrer todas las columnas
         {
             Point corner = getTileCorner(i,j);
             
@@ -83,14 +85,34 @@ void Graphics::showChanges()
 }
 ALLEGRO_COLOR Graphics::getTileColor(Point tileCorner)
 {
-    int32_t i = tileCorner.getX(), j = tileCorner.getY();
+    uint32_t i = tileCorner.getX(), j = tileCorner.getY();
     
     //dar valores semialeatorios que dependen de la posicion para que no cambien durate el programa
     //los valores de r, g, y b estan siempre entre 127 y 255, por lo que nunca se acercan a los valores
     //que deberian tener para parecer sucias 0
     return(al_map_rgb( 127 + (unsigned char)(i-100*j*j)/2 , 127 + (100*i*i - j)/2 , 127 + (100*i - 67*j)/2));
 }
+void Graphics::showTickCount(uint32_t tickCount)
+{
+    char tickCountA[100];       //arreglo para uardar el codigo ascii del tickCount
+    snprintf( tickCountA, sizeof(tickCountA), "%d", tickCount );    //generar el string de tickCount
+    
+    al_show_native_message_box(
+    NULL,
+    "Fiebre de sabado por la noche",
+    "Tu fiebre de sabado por la noche llego a los siguientes grados:",
+    tickCountA,
+    "close",
+    ALLEGRO_MESSAGEBOX_OK_CANCEL);
+}
 bool Graphics::isValid()
 {
     return valid;
+}
+void Graphics::destructor()
+{
+    al_destroy_bitmap(robotBitmap);
+    al_destroy_display(display);
+    al_shutdown_image_addon();
+    al_shutdown_primitives_addon();
 }
