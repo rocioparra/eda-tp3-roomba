@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <string>
+#include <stdint.h>
 #include "Simulation.h"
 #include "RoombaArgs.h"
 #include "Graphics.h"
@@ -34,11 +35,11 @@ extern "C" {
 using namespace std;
 
 
-int check (char * _key, char * _value, void * userData);
+int32_t check (char * _key, char * _value, void * userData);
 
 
 
-int main (int argc, char * argv[])
+int32_t main (int32_t argc, char * argv[])
 {
 	RoombaArgs userData;
 
@@ -71,7 +72,7 @@ int main (int argc, char * argv[])
 	else if (userData.getMode() == AVERAGE)
 	{
 		double meanTicks[100];
-		uint n;
+		uint32_t n;
 		memset(meanTicks, 0, sizeof(meanTicks));	//Inicializo todo el arreglo en 0
 
 		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++)
@@ -100,21 +101,21 @@ int main (int argc, char * argv[])
 
 
 
-int check (char * _key, char * _value, void * userData)
+int32_t check (char * _key, char * _value, void * userData)
 {
 	if (_key == NULL)		//el programa roomba solo recibe opciones como argumento
 		return false;
 
-	int isUInt;
+	int32_t isUInt;
 
-	uint valueNumber = getUnsInt(_value, &isUInt);
+	uint32_t valueNumber = getUnsInt(_value, &isUInt);
 	if ( !isUInt || valueNumber == 0 )					//verificar que se la conversion se hizo bien y que el value no era 0												
 		return false;				//como todos los values de este programa son uints > 0 , si es otra cosa es error
 									//notese que la func. strtol devolvera 0 si no habia un int
 
 	string key(_key);										//pasar a string por simplicidad en el codigo
 	RoombaArgs * ud = (RoombaArgs *) userData;				
-	int status = false;							//status cambiara a true si se verifica que se recibio algo valido
+	int32_t status = false;							//status cambiara a true si se verifica que se recibio algo valido
 
 	//	Se procede a verificar que la key sea una de las validas y a guardar el valor donde corresponda.
 	//  El control de cuales son los parametros maximos que se puede recibir lo hara la simulacion, esta
