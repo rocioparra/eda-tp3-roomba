@@ -3,7 +3,6 @@
 
 #include "Point.h"
 #include <stdint.h>
-#define DEFAULT_ANGLE	361
 
 
 class Robot
@@ -18,11 +17,6 @@ private:
 	/*Funcion que devuelve un objeto del tipo Point Random.Se la llama de la siguiente manera:
 	  ACLARACION: necesita tener antes definida e inicializada xmax e ymax.
 	*/
-	double changeAngle2Rad();
-	/*Funcion que cambia el valor del angulo a radianes y le devuelve como parametro, es decir, NO cambia el valor de angle.
-	*/
-	double myRand(uint32_t max);
-	/*Funcion hecha para generar numeros random que no sean enteros.*/
 public:
 	Robot(void);
 	/*Funcion Contructora por defecto, se la usa para inicializar el arreglo de robots, ya que no se puede llamar a un contructor personalizado

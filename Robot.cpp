@@ -4,6 +4,7 @@
 #include <time.h>
 #include <stdint.h>
 #define M_PI	3.14159265359
+#define DEFAULT_ANGLE	(2*M_PI+1)
 
 Robot::Robot(void)		//contruye cada robot en default
 {
@@ -16,7 +17,7 @@ void Robot::redefRobot(uint32_t _xmax, uint32_t _ymax)		//recontruye cada robot 
 {
 	xmax= _xmax;
 	ymax= _ymax;
-	angle = (rand() % 360);
+	angle = (rand() % (2*M_PI));
 	moveToPoint(randomPoint());
 	return;
 }
@@ -36,9 +37,8 @@ bool Robot::moveToPoint(Point& _p)		//Mueve al robot a un punto dado del plano, 
 
 bool Robot::move(void)			//Mueve al robot en una unidad hacia la direccion indicada por el angulo, en caso de no ser posible devuelve un false.
 {
-	double _angle, c,d;
-	_angle = changeAngle2Rad();
-	if (((c = (p.getX() + sin(_angle))) < xmax) && (c>0) && ((d = (p.getY() + cos(_angle))) < ymax) && (d>0))
+	double c,d;
+	if (((c = (p.getX() + sin(angle))) < xmax) && (c>0) && ((d = (p.getY() + cos(angle))) < ymax) && (d>0))
 	{
 		p.setX(c);
 		p.setY(d);
@@ -46,13 +46,6 @@ bool Robot::move(void)			//Mueve al robot en una unidad hacia la direccion indic
 	}
 	else
 		return false;
-}
-
-double Robot::changeAngle2Rad(void)		//Funciones que recibe un angulo y lo transforma a radianes.
-{
-	double temp;
-	temp = angle* M_PI /180;
-	return temp;
 }
 
 double Robot::getX(void)
@@ -73,33 +66,27 @@ double Robot::getAngle(void)
 Point Robot::randomPoint(void)		//Genera un punto random del plano
 {
 	Point _p;
-	_p.setX(myRand(xmax));
-	_p.setY(myRand(ymax));
+	_p.setX(((double)rand())/(RAND_MAX/xmax));
+	_p.setY(((double)rand())/(RAND_MAX/ymax));
 	return _p;
 }
 
 bool Robot::checkAngle(void)  //Funcion que genera un nuevo angulo SOLO EN EL CASO DE SER NECESARIO, en caso de no serlo, deja el angulo como estaba.
 {
-	double nextX, nextY, _angle;
-	_angle = changeAngle2Rad();
-	if (((nextX = p.getX() + sin(_angle)) < xmax) && (nextX>0) && ((nextY = p.getY() + cos(_angle)) < ymax) && (nextY>0))
+	double nextX, nextY;
+	if (((nextX = p.getX() + sin(angle)) < xmax) && (nextX>0) && ((nextY = p.getY() + cos(angle)) < ymax) && (nextY>0))
 		return false;
 	else
 	{
-		angle = (rand() % 360);
+		angle = (rand() % (2*M_PI));
 		return true;
 	}
 }
 
 bool Robot::checkEverythingOk(void)
 {
-	if((angle<360) && (angle > 0) && (p.getX() < xmax) && (p.getX() > 0) && (p.getY() <ymax) && (p.getY() >0))
+	if((angle<(2*M_PI)) && (angle > 0) && (p.getX() < xmax) && (p.getX() > 0) && (p.getY() <ymax) && (p.getY() >0))
 		return true;
 	else
 		return false;
-}
-
-double Robot::myRand(uint32_t max)
-{
-	return (((double)rand())/(RAND_MAX/max));
 }
