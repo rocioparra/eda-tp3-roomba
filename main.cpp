@@ -16,8 +16,15 @@ extern "C" {
 }
 
 
-#define MODE1	1
-#define MODE2	2
+
+#define GRAPHIC	1
+#define AVERAGE	2
+
+// CONSTANTES MODO 2:
+#define CICLES		1000	//numero de veces que repite la simulacion para calcular el promedio de ticks 
+#define MAX_ROBOTS	100		//maximo numero de robots para el que se calcula el promedio de ticks 
+#define MIN_DIFF	0,1		//minima diferencia que debe haber entre dos promedios consecutivos para seguir calculando promedios
+
 
 #define DEBUG
 #ifdef DEBUG
@@ -43,53 +50,49 @@ int main (int argc, char * argv[])
 	}
 
 
-	if(userData.getMode() == MODE1)
+	if(userData.getMode() == GRAPHIC)
 	{
 		Graphics g(userData.getWidth(), userData.getHeight());
                 MyAudio a(2);
                 sampleID bgMusic = a.loadSample("DiscoMusic.wav");
-                if(!bgMusic)return 0;
-		Simulation s(userData.getRobotN(), userData.getWidth(), userData.getHeight(), &g);
-		s.startGraphing();
-                a.playSampleLooped(bgMusic);
+		a.playSampleLooped(bgMusic);
 
+		if(bgMusic == NULL || !s.isValid())
+			return -1;
+				
 		while(!s.nextSimulationStep());
-                a.stopSamples();
+                
+		a.stopSamples();
 		g.showTickCount(s.getTickCount());
-		s.stopGraphing();
+		s.destroy();
                 g.destructor();
 	}
 
-	else if (userData.getMode() == MODE2)
+	else if (userData.getMode() == AVERAGE)
 	{
-		ulong meanTicks[100];
-		uint diff=200;
-		uint n, m;
+		double meanTicks[100];
+		uint n;
 		memset(meanTicks, 0, sizeof(meanTicks));	//Inicializo todo el arreglo en 0
 
-		for (n = 0; n < 100 && diff > 100; n++)
+		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++)
 		{
-			for(int ciclos = 0; ciclos < 1000; ciclos++)
+			for(ciclos = 0; ciclos < CICLES; ciclos++)
 			{
 				Simulation s(n+1, userData.getWidth(), userData.getHeight(), NULL);
+				if(!s.isValid())
+					return -1;
+				
 				while(!s.nextSimulationStep());
-				meanTicks[n] += s.getTickCount();
+				meanTicks[n] += double (s.getTickCount());
 				s.destroy();
 			}
 
-			diff = (n>1) ? (meanTicks[n-2] - meanTicks[n-1]) : diff;
-		}
-		
-		m=n;
-		while (m-->0)
-		{
-			meanTicks[m]/=1000;
+			meanTicks[n]/=CICLES;
 		}
 
 		GraphicMode2 g(n);
 		g.drawAllBars(meanTicks);
 		g.showChanges();
-
 	}
 	return EXIT_SUCCESS;
 }
