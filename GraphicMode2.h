@@ -18,22 +18,22 @@
 class GraphicMode2
 {
 private:
-    ALLEGRO_DISPLAY* display;   
-    ALLEGRO_FONT* defaultFont;    
-    Point origin;     //coordenada de origen del grafico
-    uint32_t barWidth;
-    uint32_t barAmount;
-    uint32_t displayHeight;
-    uint32_t displayWidth;
-    float resizingFactor;
-    bool valid;
-    void drawBar(uint32_t barPosition, uint32_t barHeight);
+        ALLEGRO_DISPLAY* display;   
+        ALLEGRO_FONT* defaultFont;    
+        Point origin;     //coordenada de origen del grafico
+        uint32_t barWidth;
+        uint32_t barAmount;
+        uint32_t displayHeight;
+        uint32_t displayWidth;
+        float resizingFactor;
+        bool valid;
+        void drawBar(uint32_t barPosition, uint32_t barHeight);
 
 public:
-    GraphicMode2(uint32_t simRepetition); //inicializa allegro y calcula el tamanio de las barras
-    void drawAllBars(double barValue[]); //dibuja todas las barras del grafico
-    void showChanges(); //muestra lo dibujado en pantalla
-    bool isValid();
+        GraphicMode2(uint32_t simRepetition); //inicializa allegro y calcula el tamanio de las barras
+        void drawAllBars(double barValue[]); //dibuja todas las barras del grafico
+        void showChanges(); //muestra lo dibujado en pantalla
+        bool isValid();
 };
 
 #endif /* GRAPHICMODE2_H */
