@@ -1,6 +1,6 @@
 #ifndef FLOOR_H
 #define FLOOR_H
-#include <cstdin>
+#include <cstdint>
 //#define DEBUG
 
 
