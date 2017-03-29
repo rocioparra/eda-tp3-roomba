@@ -1,30 +1,30 @@
 #include <iostream>
 #include <chrono>
 #include <string>
-#include <stdint.h>
+#include <cstdint>
 
 #include "Simulation.h"
-#include "RoombaArgs.h"
 #include "Graphics.h"
 #include "GraphicMode2.h"
 #include "myAudio.h"
+
 extern "C" {
 #include "parseCmdLine.h"
-}
-extern "C" {
 #include "moreString.h"
+
 }
 
 
 
-#define GRAPHIC	1
-#define AVERAGE	2
+#define SHOW_ONCE	1
+#define AVERAGE		2
 
 // CONSTANTES MODO 2:
 #define CICLES		1000	//numero de veces que repite la simulacion para calcular el promedio de ticks 
 #define MAX_ROBOTS	100		//maximo numero de robots para el que se calcula el promedio de ticks 
 #define MIN_DIFF	0,1		//minima diferencia que debe haber entre dos promedios consecutivos para seguir calculando promedios
 
+#define N_AUDIO_SAMPLES	1
 
 #define DEBUG
 #ifdef DEBUG
@@ -36,28 +36,33 @@ using namespace std;
 
 int32_t check (char * _key, char * _value, void * userData);
 
+typedef struct {
+	uint32_t width;
+	uint32_t height;
+	uint32_t mode;
+	uint32_t robotN;
+} userData_t;
 
 
 int32_t main2 (int32_t argc, char * argv[])
 {
-	RoombaArgs userData;
+	userData_t ud = {0, 0, 0, 0};
 
 	srand(time(NULL));
-	if((parseCmdLine(argc, argv, check, &userData)) == PARSER_ERROR)
-	{
+	if((parseCmdLine(argc, argv, check, &ud)) == PARSER_ERROR) {
 		cout << "ERROR en el pasaje de parametros! Abort!" << endl;
 		return -1;
 	}
 
+	if( !ud.height || !ud.width || (!ud.robotN && ud.mode == SHOW_ONCE) )
+		ud.mode = 0;
 
 
-
-	if(userData.getMode() == GRAPHIC)
-	{
-		Graphics g(userData.getWidth(), userData.getHeight());
-        MyAudio a(2);
+	if(ud.mode == SHOW_ONCE) {
+		Graphics g(ud.width, ud.height);
+        MyAudio a(N_AUDIO_SAMPLES);
         sampleID bgMusic = a.loadSample("DiscoMusic.wav");
-		Simulation s(userData.getRobotN(), userData.getWidth(), userData.getHeight(), &g);
+		Simulation s(ud.robotN, ud.width, ud.height, &g);
 
 		if( bgMusic == NULL ) {
 			cout << "Error: could not load audio sample" << endl;
@@ -68,7 +73,7 @@ int32_t main2 (int32_t argc, char * argv[])
 			return -1;
 		}
 		else if ( !s.isValid() ) {
-			cout << "Error: parameters exceeded the maximum (0<width<=100, 0<height <=70, 0<robots, mode = 1 or mode =2)" << endl;
+			cout << "Error: parameters exceeded the maximum (width <= 100, height <=70)" << endl;
 			return -1;
 		}
 		
@@ -82,19 +87,17 @@ int32_t main2 (int32_t argc, char * argv[])
         g.destructor();
 	}
 
-	else if (userData.getMode() == AVERAGE)
-	{
+	else if (ud.mode == AVERAGE) {
 		double meanTicks[MAX_ROBOTS];				//promedios
 		uint32_t n, i;								//contadores: robots, ciclos
 		memset(meanTicks, 0, sizeof(meanTicks));	//inicializo todo el arreglo en 0
 
-		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++)
-		{
-			for(i = 0; i < CICLES; i++)
-			{
-				Simulation s(n+1, userData.getWidth(), userData.getHeight(), NULL);
+		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++) {
+			for(i = 0; i < CICLES; i++)	{
+				Simulation s(n+1, ud.width, ud.height);
 				if ( !s.isValid() ) {
-					cout << "Error: parameters exceeded the maximum (0<width<=100, 0<height <=70, 0<robots, mode = 1 or mode =2)" << endl;
+					cout << "Error: parameters exceeded the maximum (0<width<=100"
+						 <<", 0<height <=70, 0<robots, mode = 1 or mode =2)" << endl;
 					return -1;
 				}
 				
@@ -116,6 +119,15 @@ int32_t main2 (int32_t argc, char * argv[])
 		g.showChanges();
 	}
 
+	else {
+		cout << "Error: invalid or insufficient parameters. Keep in mind that:"	<< endl
+			 << "- all parameters must be positive integers"					<< endl
+			 << "- Mode can only be 1 (show once) or 2 (mean average)"			<< endl
+			 << "- Robots must be explicit for mode 1"							<< endl
+			 << "- Width, Height and Mode must always be explicit"				<< endl;
+		return -1;
+	}
+
 	return EXIT_SUCCESS;
 }
 
@@ -124,7 +136,7 @@ int32_t main2 (int32_t argc, char * argv[])
 
 int32_t check (char * _key, char * _value, void * userData)
 {
-	if (_key == NULL)		//el programa roomba solo recibe opciones como argumento
+	if (_key == NULL || _value == NULL || userData == NULL)		//el programa roomba solo recibe opciones como argumento
 		return false;
 
 	int32_t isUInt;
@@ -135,7 +147,7 @@ int32_t check (char * _key, char * _value, void * userData)
 									//notese que la func. strtol devolvera 0 si no habia un int
 
 	string key(_key);										//pasar a string por simplicidad en el codigo
-	RoombaArgs * ud = (RoombaArgs *) userData;				
+	userData_t * ud = (userData_t *) userData;				
 	int32_t status = false;							//status cambiara a true si se verifica que se recibio algo valido
 
 	//	Se procede a verificar que la key sea una de las validas y a guardar el valor donde corresponda.
@@ -143,23 +155,23 @@ int32_t check (char * _key, char * _value, void * userData)
 	//funcion solo verifica que los numeros sean mayores a 0 y que el modo sea valido.
 
 	if (key == "Width") {
-		(*ud).setWidth(valueNumber);
+		ud->width = valueNumber;
 		status = true;
 	}
 
 	else if (key == "Height") {
-		(*ud).setHeight(valueNumber);
+		ud->height = valueNumber;
 		status = true;
 	}
 
 	else if (key == "Robots") {
-		(*ud).setRobotN(valueNumber);
+		ud->robotN = valueNumber;
 		status = true;
 	}
 
 	else if (key == "Modo") {				
 		if ( valueNumber <=2 ) { //modo puede ser solo 1 o 2
-			(*ud).setMode(valueNumber);
+			ud->mode = valueNumber;
 			status = true;
 		}
 	}

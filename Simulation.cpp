@@ -11,15 +11,11 @@ Simulation :: Simulation(uint32_t _robotCount, uint32_t _width, uint32_t _height
 {
 	ticks = 0;
 	robotCount = _robotCount;
-
-	if (_g == NULL)		//si graphic es NULL es porque no hay que graficar
-		wantToGraphic = false;
-	else
-		wantToGraphic = true;
-
+		
 	valid = false;	//empieza como false. Si podemos hacer todo sin errores, ponemos true
 	r = NULL;		//en caso de que haya un error antes de definir los punteros, los ponemos en NULL
 	f = NULL;
+	g = NULL;
 
 	if (_robotCount <= MAX_ROBOTS && _height <= MAX_HEIGHT && _width <= MAX_WIDTH ) {
 	//primero verificamos que los parametros recibidos sean validos para esta simulacion
@@ -43,6 +39,7 @@ bool Simulation :: isValid ()
 	return valid;
 }
 
+
 bool Simulation :: nextSimulationStep()
 {
 	//primero chequea que la simulacion se haya inicializado bien
@@ -60,8 +57,8 @@ bool Simulation :: nextSimulationStep()
 			//3 y la columna 0 del piso
 		}
 	}
-	if (wantToGraphic)
-	{
+
+	if (g != NULL)	{
 		(*g).drawFloor((*f).getFloor(), (*f).getWidth(), (*f).getHeight());
 
 		for (uint32_t i = 0; i < robotCount; i++) {
@@ -76,7 +73,7 @@ bool Simulation :: nextSimulationStep()
 }
 	
 	
-ulong Simulation :: getTickCount()
+uint64_t Simulation :: getTickCount()
 {
 	return ticks;
 }
@@ -104,24 +101,7 @@ uint32_t Simulation :: getFloorHeight()
 	else
 		return (*f).getHeight();
 }
-	
 
-bool Simulation :: amIgraphing()
-{
-	return wantToGraphic;
-}
-	
-	
-void Simulation :: startGraphing()
-{
-	wantToGraphic = true;
-}
-	
-	
-void Simulation :: stopGraphing()
-{
-	wantToGraphic = false;
-}
 	
 void Simulation :: destroy()
 {
@@ -129,4 +109,5 @@ void Simulation :: destroy()
 	delete r;
 	f = NULL;
 	r = NULL;
+	g = NULL;
 }
