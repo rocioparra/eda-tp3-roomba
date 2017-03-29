@@ -1,5 +1,5 @@
 #include "Point.h"
-#include <stdint.h>
+#include <cstdint>
 
 
 Point :: Point(double _x, double _y)
