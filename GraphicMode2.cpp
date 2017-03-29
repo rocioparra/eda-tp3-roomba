@@ -1,16 +1,16 @@
 #include "GraphicMode2.h"
 
-GraphicMode2::GraphicMode2(uint32_t simRepetition) //inicializa allegro y calcula el tamanio de las barras
+//inicializa allegro y calcula el tamanio de las barras.
+//Recibe uint32_t simRepetition: cuántas veces se calculo el promedio de la duracion de la simulacion
+GraphicMode2::GraphicMode2(uint32_t simRepetition)
 {
 	valid = true;
+	//inicialiacion de allegro. Si alguna funcion de inicializacion devuelve error, 
+	//se lo indica en la variable "Valid" y se llevan a cabo las funciones de finalizacion correspondientes.
 	if(!al_init()) 
-	{
 		valid = false;
-	}
 	if(!al_init_primitives_addon())
-	{
 		valid = false;
-	}
 	if(!al_init_image_addon())
 	{
 		valid = false;
@@ -22,6 +22,7 @@ GraphicMode2::GraphicMode2(uint32_t simRepetition) //inicializa allegro y calcul
 	displayWidth = 600;     //BORRAR MAGIC NUMBER
 	displayHeight = 600;     //BORRAR MAGIC NUMBER
         
+	//creacion del display
 	display = al_create_display(displayWidth, displayHeight);
 	if(!display)
 	{
@@ -30,6 +31,7 @@ GraphicMode2::GraphicMode2(uint32_t simRepetition) //inicializa allegro y calcul
 		al_shutdown_image_addon();
 	}
         
+	//cargar fuente
 	defaultFont = al_load_ttf_font("defaultFont.ttf", FONTSIZE,0 );
 	if (!defaultFont)
 	{
@@ -38,26 +40,27 @@ GraphicMode2::GraphicMode2(uint32_t simRepetition) //inicializa allegro y calcul
 		al_shutdown_image_addon();
 	}
         
+	//setear el origen del grafico
 	origin.setX(displayWidth*0.125);        //MAGIC NUMBERS????????????????????????????????
 	origin.setY(displayHeight*0.875);
         
-	al_draw_line(origin.getX(), origin.getY(), origin.getX(), origin.getY()-displayHeight*0.75, al_map_rgb(255,255,255), 2); //dibuja eje vertical
-	al_draw_line(origin.getX(), origin.getY(), origin.getX()+displayWidth*0.75, origin.getY(), al_map_rgb(255,255,255), 2); //dibuja eje horizontal       
-	barAmount = simRepetition;
+	//dibuja ejes vertical y horizontal
+	al_draw_line(origin.getX(), origin.getY(), origin.getX(), origin.getY()-displayHeight*0.75, al_map_rgb(255,255,255), 2); 
+	al_draw_line(origin.getX(), origin.getY(), origin.getX()+displayWidth*0.75, origin.getY(), al_map_rgb(255,255,255), 2);
+	barAmount = simRepetition;	//hay una barra por cada promedio
 	barWidth = displayWidth*0.75/(simRepetition + 1); //se agrega uno mas para dejar lugar entre la ultima barra y el fin de la linea
 }
 void GraphicMode2::drawAllBars(double barValue[]) //dibuja todas las barras del grafico
 {
-	resizingFactor = (displayHeight*0.75)/barValue[0];
+	//calcular que modificacion de tamaño se debe hacer para que la barra mas alta no se exceda del grafico
+	resizingFactor = (displayHeight*0.75)/barValue[0]; 
 	char maxValueA[6]; //arreglo para guardar el ascii del maximo valor
  //       snprintf( maxValueA, sizeof(maxValueA), "%f", barValue[0] );
-        
+      
 	al_draw_text(defaultFont, al_map_rgb(255,255,255), origin.getX(), origin.getY()-displayHeight*0.75, ALLEGRO_ALIGN_RIGHT, "CAMBIAR ESTO");
 
-	for(uint32_t i = 0; i < barAmount; i++)
-	{
+	for(uint32_t i = 0; i < barAmount; i++)	//dibujar cada barra
 		drawBar(i, barValue[i]);
-	}
 }
 void GraphicMode2::showChanges() //muestra lo dibujado en pantalla
 {
