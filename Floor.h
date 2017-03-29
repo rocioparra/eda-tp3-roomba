@@ -1,17 +1,16 @@
 #ifndef FLOOR_H
 #define FLOOR_H
-#include <stdint.h>
+#include <cstdin>
 //#define DEBUG
 
 
 class Floor
 {
-  private:
+private:
 	bool * tile;		//arreglo de baldosas
 	uint32_t width;	//dimensiones del arreglo
 	uint32_t height;
-
-  public:
+public:
   
 	Floor(uint32_t _width, uint32_t _height);
 	//las medidas deben explicitarse. inicializa todo como false, que indica sucio
