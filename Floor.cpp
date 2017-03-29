@@ -1,6 +1,6 @@
 #include "Floor.h"
 #include <cstdlib>
-#include <stdint.h>
+#include <cstdint>
 
 #define DEBUG
 
