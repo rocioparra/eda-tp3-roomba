@@ -2,7 +2,7 @@
 #include <new>
 #include <chrono>
 #include <thread>
-#include <stdint.h>
+#include <cstdint>
 
 #define FPS(x)	(1000/(x))
 
