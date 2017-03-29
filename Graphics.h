@@ -12,11 +12,10 @@ extern "C"{
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_native_dialog.h>
 }
-#define MAXTILESIDE 200    //maximo medida que puede tomar el lado de una baldosa
+#define MAXTILESIDE 200         //maximo medida que puede tomar el lado de una baldosa
 #define ROBOT_SPRITE "Travolta.png"
-#define ROBOT_SPRITE_SIDE 160.0   //tamanio del lado del sprite delrobot
+#define ROBOT_SPRITE_SIDE 160.0 //tamanio del lado del sprite delrobot
 #define ROBOT_TILE_RATIO 1.0    //relacion entre el lado de la baldosa y el lado del robot (baldosa/robot)
-
 
 class Graphics
 {

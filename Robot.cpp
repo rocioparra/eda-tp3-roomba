@@ -18,8 +18,10 @@ void Robot::redefRobot(uint32_t _xmax, uint32_t _ymax)		//recontruye cada robot 
 {
 	xmax= _xmax;
 	ymax= _ymax;
-	angle = (rand() % (2*M_PI));
-	moveToPoint(randomPoint());
+	angle = (rand() % (int)(2*M_PI));
+        Point rdm = randomPoint();
+	moveToPoint(rdm);   //moveToPoint recibe una referencia a Point, 
+                            //por lo tanto no se puede invocar como moveToPoint(randomPoint())
 	return;
 }
 
@@ -79,7 +81,7 @@ bool Robot::checkAngle(void)  //Funcion que genera un nuevo angulo SOLO EN EL CA
 		return false;
 	else
 	{
-		angle = (rand() % (2*M_PI));
+		angle = (rand() % (uint32_t)(2*M_PI));
 		return true;
 	}
 }

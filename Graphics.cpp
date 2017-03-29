@@ -1,5 +1,5 @@
 #include "Graphics.h"
-//#include <cstdio>
+
 
 using namespace std;
 
@@ -26,13 +26,14 @@ Graphics::Graphics(uint32_t xTiles, uint32_t yTiles)
         	valid = false;
     	}
     
-    	float screenResX = 1600, screenResY = 900;  //falta averiguar la resolucion del display en ejecucion  
+    	float screenResX = 1600, screenResY = 1600;  //falta averiguar la resolucion del display en ejecucion  
     
     	//tamanio de baldosa: minimo entre ancho de pantalla/xTiles, alto de pantalla/ytiles, y el maximo establecido en MAXTILESIDE
-    	tileSide = min( min((uint32_t)(screenResX/xTiles),(uint32_t)(screenResY/yTiles)) , MAXTILESIDE);
-
+        tileSide = std::min( (int32_t)std::min((uint32_t)(screenResX/xTiles),(uint32_t)(screenResY/yTiles)) , MAXTILESIDE);
+        
+        if(valid)
     	//constante por la cual hay que modificar el tamanio del sprite del robot en relacion al tamanio de las baldosas
-    	resizingFactor = (float)tileSide*ROBOT_TILE_RATIO/(float)al_get_bitmap_width(robotBitmap);
+                resizingFactor = (float)tileSide*ROBOT_TILE_RATIO/(float)al_get_bitmap_width(robotBitmap);
     
    	if(valid)
         	display = al_create_display(tileSide*xTiles, tileSide*yTiles);

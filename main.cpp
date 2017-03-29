@@ -33,7 +33,6 @@ extern "C" {
 
 using namespace std;
 
-
 int32_t check (char * _key, char * _value, void * userData);
 
 typedef struct {
@@ -43,8 +42,7 @@ typedef struct {
 	uint32_t robotN;
 } userData_t;
 
-
-int32_t main2 (int32_t argc, char * argv[])
+int32_t main (int32_t argc, char * argv[])
 {
 	userData_t ud = {0, 0, 0, 0};
 
@@ -60,16 +58,16 @@ int32_t main2 (int32_t argc, char * argv[])
 
 	if(ud.mode == SHOW_ONCE) {
 		Graphics g(ud.width, ud.height);
-        MyAudio a(N_AUDIO_SAMPLES);
-        sampleID bgMusic = a.loadSample("DiscoMusic.wav");
+                if ( !g.isValid() ) {
+			cout << "Error: allegro was not properly initialized" << endl;
+			return -1;
+		}
+                MyAudio a(N_AUDIO_SAMPLES);
+                sampleID bgMusic = a.loadSample("DiscoMusic.wav");
 		Simulation s(ud.robotN, ud.width, ud.height, &g);
 
 		if( bgMusic == NULL ) {
 			cout << "Error: could not load audio sample" << endl;
-			return -1;
-		}
-		else if ( !g.isValid() ) {
-			cout << "Error: allegro was not properly initialized" << endl;
 			return -1;
 		}
 		else if ( !s.isValid() ) {
@@ -131,9 +129,6 @@ int32_t main2 (int32_t argc, char * argv[])
 	return EXIT_SUCCESS;
 }
 
-
-
-
 int32_t check (char * _key, char * _value, void * userData)
 {
 	if (_key == NULL || _value == NULL || userData == NULL)		//el programa roomba solo recibe opciones como argumento
@@ -178,4 +173,3 @@ int32_t check (char * _key, char * _value, void * userData)
 
 	return status;
 }
-
