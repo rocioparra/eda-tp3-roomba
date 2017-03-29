@@ -6,13 +6,14 @@
 #include "Robot.h"
 #include "Simulation.h"
 #include "Point.h"
+extern "C"{
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> 
 #include <allegro5/allegro_color.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
-
+}
 #define FONTSIZE 20     //tamaño de letra usada para etiquetar los ejes y el maximo valor
 
 class GraphicMode2 //genera un grafico de barras 
