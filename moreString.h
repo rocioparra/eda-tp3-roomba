@@ -1,6 +1,6 @@
 #ifndef MORE_STRING_H
 #define MORE_STRING_H
-#include <stdint.h>
+#include <cstdint>
 
 #ifndef TRUE 
 #define TRUE	1	//success 
