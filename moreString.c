@@ -1,7 +1,6 @@
 #include "moreString.h"
 #include <string.h>
 #include <ctype.h>
-#include <stdint.h>
 #include <stdlib.h>
 
 void toLowercase(char *  dest, char * origin, uint32_t max)
