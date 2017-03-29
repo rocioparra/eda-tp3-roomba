@@ -1,6 +1,6 @@
 #ifndef ROOMBA_ARGS_H
 #define ROOMBA_ARGS_H
-#include <stdint.h>
+#include <cstdint>
 
 extern "C" {
 #include "parseCmdLine.h"
