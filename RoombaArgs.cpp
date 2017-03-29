@@ -1,7 +1,7 @@
 #include "RoombaArgs.h"
 #include <string>
 #include <cstdlib>
-#include <stdint.h>
+#include <cstdint>
 
 
 using namespace std;
