@@ -1,10 +1,11 @@
 #ifndef MYAUDIO_H
 #define MYAUDIO_H
 
+extern "C"{
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_audio.h> 
 #include <allegro5/allegro_acodec.h>
-
+}
 #define SONGFILE1 "DiscoMusic.wav"  //archivo del audio que se reproduce durante la simulacion del modo uno
 #define MAX_SAMPLES	3
 
