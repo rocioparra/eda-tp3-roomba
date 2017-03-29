@@ -3,7 +3,7 @@
 
 #include "Point.h"
 #include <stdio.h>
-#include <stdint.h>
+#include <cstdint>
 #include <algorithm>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> 
