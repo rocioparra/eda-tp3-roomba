@@ -4,7 +4,7 @@
 #include "Robot.h"
 #include "Floor.h"
 #include "Graphics.h" 
-#include <stdint.h>
+#include <cstdint>
 
 //parametros maximos aceptados por esta simulacion
 #define MAX_ROBOTS	100
