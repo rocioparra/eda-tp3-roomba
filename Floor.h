@@ -11,7 +11,7 @@
 
 	Autores:	Díaz, Ian Cruz				- legajo 57.515
 				Parra, Rocío				- legajo 57.669
-				Stewart Harris, María Luz	- legajo 
+				Stewart Harris, María Luz	- legajo 57.676
 
 	Fecha de entrega: jueves 30 de marzo de 2017
 
