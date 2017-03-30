@@ -3,8 +3,10 @@
 #include <chrono>
 #include <thread>
 
-#define FPS(x)	(1000/(x))
+#define ONE_SECOND	1000
+#define FPS			60	
 
+using namespace std;
 
 Simulation :: Simulation(uint32_t _robotCount, uint32_t _width, uint32_t _height, Graphics * _g)
 {
@@ -21,13 +23,21 @@ Simulation :: Simulation(uint32_t _robotCount, uint32_t _width, uint32_t _height
 		f = new Floor(_width, _height);
 		if (f != NULL) {					//verificar que se haya podido reservar memoria para el piso
 			r = new Robot[robotCount];
-			if (r != NULL)	
+			if (r != NULL) {	
 				if ((*f).isValid()) {											//lo mismo para los robots
 					valid = true;						//en este punto, ya se hizo todo el control de error
 					g = _g;
 					for ( uint32_t i = 0; i<robotCount; i++ )					//inicializar todos los robots
 						r[i].redefRobot(_width, _height);
 				}
+				else {
+					delete f;
+					delete r;
+				}
+			}
+			else {
+				delete f;	
+			}
 		}
 	}
 }
@@ -65,7 +75,7 @@ bool Simulation :: nextSimulationStep()
 		}
 
 		(*g).showChanges();
-		std::this_thread::sleep_for(std::chrono::milliseconds(FPS(80)));
+		this_thread::sleep_for(chrono::milliseconds(ONE_SECOND/FPS));
 	}	
 		
 	return !(*f).isDirty();	//devuelve true si el piso esta limpio

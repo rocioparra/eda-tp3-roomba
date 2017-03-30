@@ -1,14 +1,13 @@
 #ifndef FLOOR_H
 #define FLOOR_H
 #include <cstdint>
-//#define DEBUG
 
 
 class Floor
 {
 private:
 	bool * tile;		//arreglo de baldosas
-	uint32_t width;	//dimensiones del arreglo
+	uint32_t width;		//dimensiones del arreglo
 	uint32_t height;
 public:
   

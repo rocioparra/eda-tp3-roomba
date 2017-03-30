@@ -1,5 +1,6 @@
 #include <iostream>
 #include <chrono>
+#include <thread>
 #include <string>
 #include <cstdint>
 
@@ -42,13 +43,15 @@ typedef struct {
 	uint32_t robotN;
 } userData_t;
 
-int32_t main (int32_t argc, char * argv[])
+int32_t main2(int32_t argc, char * argv[])
 {
 	userData_t ud = {0, 0, 0, 0};
 
 	srand(time(NULL));
 	if((parseCmdLine(argc, argv, check, &ud)) == PARSER_ERROR) {
-		cout << "ERROR en el pasaje de parametros! Abort!" << endl;
+		cout << "Invalid parameters. Keep in mind that:"						<< endl
+			 << "- all parameters must be positive integers"					<< endl
+			 << "- Mode can only be 1 (show once) or 2 (mean average)"			<< endl;
 		return -1;
 	}
 
@@ -91,6 +94,8 @@ int32_t main (int32_t argc, char * argv[])
 		memset(meanTicks, 0, sizeof(meanTicks));	//inicializo todo el arreglo en 0
 
 		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++) {
+			cout << "Simulating "<< n+1 << " robots"<< endl;
+
 			for(i = 0; i < CICLES; i++)	{
 				Simulation s(n+1, ud.width, ud.height);
 				if ( !s.isValid() ) {
@@ -103,7 +108,6 @@ int32_t main (int32_t argc, char * argv[])
 				meanTicks[n] += double (s.getTickCount());
 				s.destroy();
 			}
-
 			meanTicks[n]/=CICLES;
 		}
 
@@ -115,7 +119,8 @@ int32_t main (int32_t argc, char * argv[])
 
 		g.drawAllBars(meanTicks);
 		g.showChanges();
-                al_rest(5.0);
+		this_thread::sleep_for(chrono::seconds(5));
+		g.destructor();
 	}
 	else {
 		cout << "Error: invalid or insufficient parameters. Keep in mind that:"	<< endl

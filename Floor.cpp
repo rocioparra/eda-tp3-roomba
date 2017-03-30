@@ -1,13 +1,6 @@
 #include "Floor.h"
 #include <cstdlib>
-#include <cstdint>
 
-#define DEBUG
-
-#ifdef DEBUG
-#include <iostream>
-using namespace std;
-#endif
 
 Floor :: Floor(uint32_t _width, uint32_t _height)
 {

@@ -37,6 +37,7 @@ public:
         void drawAllBars(double barValue[]); //dibuja todas las barras del grafico
         void showChanges(); //muestra lo dibujado en pantalla
         bool isValid(); //indica si hubo error o no en el constructor
+		void destructor();
 };
 
 #endif /* GRAPHICMODE2_H */
