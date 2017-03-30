@@ -34,7 +34,6 @@ extern "C" {
 }
 
 
-
 // MODOS: show once muestra una simulacion graficamente, average muestra un grafico del promedio de ticks para un piso con
 // distintos numeros de robots
 #define SHOW_ONCE	1
@@ -43,7 +42,7 @@ extern "C" {
 // CONSTANTES MODO 2:
 #define CICLES		1000	//numero de veces que repite la simulacion para calcular el promedio de ticks 
 #define MAX_ROBOTS	100		//maximo numero de robots para el que se calcula el promedio de ticks 
-#define MIN_DIFF	0,1		//minima diferencia que debe haber entre dos promedios consecutivos para seguir calculando promedios
+#define MIN_DIFF	0.1		//minima diferencia que debe haber entre dos promedios consecutivos para seguir calculando promedios
 
 #define N_AUDIO_SAMPLES	1	//cuantas pistas de audio se utilizan en este programa (solo la musica de fondo)
 
@@ -123,7 +122,7 @@ int32_t main(int32_t argc, char * argv[])
 		uint32_t n, i;								//contadores: robots, ciclos
 		memset(meanTicks, 0, sizeof(meanTicks));	//inicializo todo el arreglo en 0
 
-		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++) {
+		for (n = 0; n < MAX_ROBOTS && ( n<=1 || (meanTicks[n-2] - meanTicks[n-1] > (double)MIN_DIFF)); n++) {
 		//se prueba desde 1 robot a 100 robots, o hasta que los promedios den casi lo mismo para dos
 		//numeros de robots consecutivos
 			cout << "Simulating "<< n+1 << " robots"<< endl;
