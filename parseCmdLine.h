@@ -44,7 +44,6 @@
 #define PARSECMDLINE_H
 #include <stdint.h>
 
-
 #define PARSER_ERROR	-1
 
 

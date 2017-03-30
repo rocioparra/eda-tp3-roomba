@@ -1,6 +1,6 @@
 #include "myAudio.h"
 
-MyAudio::MyAudio(uint samplesReservation)
+MyAudio::MyAudio(uint32_t samplesReservation)
 {
    	valid = true;
    	if(!al_init())
@@ -50,7 +50,7 @@ bool MyAudio::isValid()
 }
 void MyAudio::destructor()
 {
-    	for(int i = 0; i < samplesStored; ++i)
+    	for(uint32_t i = 0; i < samplesStored; ++i)
     	{
         	al_destroy_sample(loadedSamples[i]);
     	}

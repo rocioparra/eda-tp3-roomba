@@ -5,6 +5,7 @@
 #include "Robot.h"
 #include "Simulation.h"
 #include "Point.h"
+#include <cstdint>
 extern "C"{
 #include <stdio.h>
 #include <allegro5/allegro.h>

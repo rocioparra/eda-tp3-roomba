@@ -18,8 +18,8 @@ void Robot::redefRobot(uint32_t _xmax, uint32_t _ymax)		//recontruye cada robot 
 {
 	xmax= _xmax;
 	ymax= _ymax;
-	angle = (rand() % (int)(2*M_PI));
-        Point rdm = randomPoint();
+	angle = (((double)rand())/((double)RAND_MAX/2*M_PI));
+	Point rdm = randomPoint();
 	moveToPoint(rdm);   //moveToPoint recibe una referencia a Point, 
                             //por lo tanto no se puede invocar como moveToPoint(randomPoint())
 	return;
@@ -66,6 +66,12 @@ double Robot::getAngle(void)
 	return angle;
 }
 
+void setAngle(double temp)
+{
+	angle = temp;
+	return;
+}
+
 Point Robot::randomPoint(void)		//Genera un punto random del plano
 {
 	Point _p;
@@ -84,12 +90,4 @@ bool Robot::checkAngle(void)  //Funcion que genera un nuevo angulo SOLO EN EL CA
 		angle = (rand() % (uint32_t)(2*M_PI));
 		return true;
 	}
-}
-
-bool Robot::checkEverythingOk(void)
-{
-	if((angle<(2*M_PI)) && (angle > 0) && (p.getX() < xmax) && (p.getX() > 0) && (p.getY() <ymax) && (p.getY() >0))
-		return true;
-	else
-		return false;
 }

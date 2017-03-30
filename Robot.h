@@ -14,14 +14,13 @@ private:
 	uint32_t ymax;
 
 	Point randomPoint(void);
-	/*Funcion que devuelve un objeto del tipo Point Random.Se la llama de la siguiente manera:
+	/*Funcion que devuelve un objeto del tipo Point Random.
 	  ACLARACION: necesita tener antes definida e inicializada xmax e ymax.
 	*/
 public:
 	Robot(void);
-	/*Funcion Contructora por defecto, se la usa para inicializar el arreglo de robots, ya que no se puede llamar a un contructor personalizado
-	inicializa:
-		xmax = 0, ymax=0, angle = 361.
+	/*Funcion Contructora por defecto.Inicializa:
+		xmax = 0, ymax=0, angle = DEFAULT_ANGLE.  (DEFAULT_ANGLE = 2*M_PI)
 	 */
 	void redefRobot(uint32_t _xmax, uint32_t _ymax);
 	/*Funcion reconstructora, inicializa las variables xmax e ymax con los parametros recibidos, y mueve al robor a un punto random del plano.
@@ -57,9 +56,7 @@ public:
 	double getX();	//Getter de la posicion en x del robot
 	double getY();	//Getter de la posicion en y de robot
 	double getAngle();	//Getter del angulo direccion del robot.
-
-	bool checkEverythingOk(void);
-	/*Funcion de DEBUGEO, devuelve true si esta todo bien, y false si alguna variable esta fuera de rango.*/
+	void setAngle(double temp);	//Setter del angulo del robot.
 };
 
 
