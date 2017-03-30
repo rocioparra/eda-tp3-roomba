@@ -33,6 +33,12 @@ extern "C" {
 
 }
 
+#define DEBUG
+#ifdef DEBUG
+#include "mainTest.h"
+#endif
+
+
 // MODOS: show once muestra una simulacion graficamente, average muestra un grafico del promedio de ticks para un piso con
 // distintos numeros de robots
 #define SHOW_ONCE	1
@@ -59,7 +65,7 @@ typedef struct {
 } userData_t;
 
 
-int32_t main(int32_t argc, char * argv[])
+int32_t main2(int32_t argc, char * argv[])
 {
 	srand(time(NULL));
 	userData_t ud = {0, 0, 0, 0};
@@ -94,10 +100,13 @@ int32_t main(int32_t argc, char * argv[])
 
 		if( bgMusic == NULL ) {
 			cout << "Error: could not load audio sample" << endl;
+			g.destructor();
 			return -1;
 		}
 		else if ( !s.isValid() ) {
 			cout << "Error: parameters exceeded the maximum (width <= 100, height <=70)" << endl;
+			g.destructor();
+			a.destructor();
 			return -1;
 		}
 		
