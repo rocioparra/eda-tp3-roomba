@@ -6,19 +6,19 @@ extern "C"{
 #include <allegro5/allegro_audio.h> 
 #include <allegro5/allegro_acodec.h>
 }
-#include <cstdint>
 #define SONGFILE1 "DiscoMusic.wav"  //archivo del audio que se reproduce durante la simulacion del modo uno
 #define MAX_SAMPLES	3
 
+typedef unsigned int uint;
 typedef ALLEGRO_SAMPLE* sampleID;   //sirve para tener un mayor nivel de abstraccion de allegro
 
 class MyAudio{
 private:
 	sampleID loadedSamples[MAX_SAMPLES];       //Se agrega por escalabilidad y para destruir los samples al finalizar el programa
-	uint32_t samplesStored;
+	uint samplesStored;
 	bool valid;
 public:
-	MyAudio(uint32_t sampleOverlap);                //sampleOverlap: hasta cuantas samples se pueden escuchar al mismo tiempo
+	MyAudio(uint sampleOverlap);                //sampleOverlap: hasta cuantas samples se pueden escuchar al mismo tiempo
 	sampleID loadSample(char* fileName);        //carga en memoria el sample deseado 
 	void playSampleOnce(sampleID sample);       //Reproduce una vez el sample recibido
 	void playSampleLooped(sampleID sample);     //Reproduce loopeado el sample recibido

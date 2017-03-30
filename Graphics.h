@@ -2,8 +2,9 @@
 #define GRAPHICS_H
 
 #include "Point.h"
-#include <cstdio>
 #include <cstdint>
+
+
 extern "C"{
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> 
@@ -11,6 +12,7 @@ extern "C"{
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_native_dialog.h>
 }
+
 #define MAXTILESIDE 200         //maximo medida que puede tomar el lado de una baldosa
 #define ROBOT_SPRITE "Travolta.png"
 #define ROBOT_SPRITE_SIDE 160.0 //tamanio del lado del sprite delrobot

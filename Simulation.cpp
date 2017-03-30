@@ -6,6 +6,8 @@
 #define ONE_SECOND	1000
 #define FPS			60	
 
+#define PI			3.14159
+
 using namespace std;
 
 Simulation :: Simulation(uint32_t _robotCount, uint32_t _width, uint32_t _height, Graphics * _g)
@@ -58,13 +60,13 @@ bool Simulation :: nextSimulationStep()
 	ticks++;	//indicar que se hizo otro paso mas
 
 	for (uint32_t i = 0; i<robotCount; i ++) {
-		if (!r[i].checkAngle()) {   //hace falta cambiar el angulo? si es asi, lo cambia
-			r[i].move();			//si no, mueve el robot y limpia la baldosa donde cae
-
-			(*f).cleanTile(uint32_t (r[i].getX()),uint32_t (r[i].getY()));
-			//al castear a int se trunca: si x=3,45, y=0,23, el robot esta en la fila
-			//3 y la columna 0 del piso
+		if (!r[i].move()) {   //se pudo mover? si no, cambia el angulo
+			r[i].setAngle(double(rand())/double(RAND_MAX)*2*PI);	//si no, mueve el robot y limpia la baldosa donde cae
 		}
+		(*f).cleanTile(uint32_t (r[i].getX()),uint32_t (r[i].getY()));
+		//limpiar la baldosa donde esta el robot
+		//al castear a int se trunca: si x=3,45, y=0,23, el robot esta en la fila
+		//3 y la columna 0 del piso
 	}
 
 	if (g != NULL)	{
@@ -77,8 +79,9 @@ bool Simulation :: nextSimulationStep()
 			//ubica cada uno de los robots con el angulo que corresponda
 		}
 
-		(*g).showChanges();
+		(*g).showChanges();					//mostrar los resultados obtenidos
 		this_thread::sleep_for(chrono::milliseconds(ONE_SECOND/FPS));
+		//mostrar un delay para que se llegue a ver
 	}	
 		
 	return !(*f).isDirty();	//devuelve true si el piso esta limpio

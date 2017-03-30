@@ -197,7 +197,7 @@ int32_t check (char * _key, char * _value, void * userData)
 		status = true;
 	}
 
-	else if (key == "Modo") {				
+	else if (key == "Mode") {				
 		if ( valueNumber <=2 ) { //modo puede ser solo 1 o 2
 			ud->mode = valueNumber;
 			status = true;

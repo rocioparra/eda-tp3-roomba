@@ -65,7 +65,7 @@ double Robot::getAngle(void)
 	return angle;
 }
 
-void setAngle(double temp)
+void Robot::setAngle(double temp)
 {
 	angle = temp;
 	return;

@@ -1,6 +1,28 @@
 #ifndef ROBOT_H
 #define ROBOT_H
 
+/*	
+
+	Instituto Tecnológico de Buenos Aires
+	22.08 - Algoritmos y estructura de datos
+
+	Trabajo práctico n° 3: Robots
+
+	Autores:	Díaz, Ian Cruz				- legajo 57.515
+				Parra, Rocío				- legajo 57.669
+				Stewart Harris, María Luz	- legajo 
+
+	Fecha de entrega: jueves 30 de marzo de 2017
+
+***********************************************************************************************************
+	
+	Clase robots
+	Cada robot esta ubicado en un punto y se mueve en linea recta con un cierto angulo. Su posicion siempre
+tiene que ser positiva y menor que un cierto numero, especifico para cada robot creado.
+
+*/
+
+
 #include "Point.h"
 #include <cstdint>
 

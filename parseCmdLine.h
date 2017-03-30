@@ -28,8 +28,7 @@
 //	GRUPO 5																									//
 //																											//
 //	************************************																	//
-
-//	||		AUTORES		 ||  LEGAJO   ||																		//
+//	||		AUTORES		 ||  LEGAJO   ||																	//
 //	************************************																	//
 //	|| Álvarez, Lisandro ||  57.771   ||																	//
 //	|| Lago, Valentina   ||  57.249   ||																	//
@@ -43,6 +42,7 @@
 #ifndef PARSECMDLINE_H
 #define PARSECMDLINE_H
 #include <stdint.h>
+
 
 #define PARSER_ERROR	-1
 
