@@ -4,14 +4,15 @@
 
 Floor :: Floor(uint32_t _width, uint32_t _height)
 {
-	tile = (bool *) calloc(_width*_height, sizeof(bool));	//reservar memoria para el piso, en 0
+	tile = (bool *) calloc(_width*_height, sizeof(bool));
+	//reservar memoria para el piso, inicialmente en 0 (que significa sucio)
 
 	if (tile == NULL) {
-		width = 0;		//si hubo error, registrar que el piso no tiene medidas porque no existe
+		width = 0;			//si hubo error, registrar que el piso no tiene medidas porque no existe
 		height = 0;
 	}
 	else {
-		width = _width;	//si el piso se pudo crear, guardar su tamano
+		width = _width;		//si el piso se pudo crear, guardar su tamano
 		height = _height;
 	}
 
@@ -30,10 +31,10 @@ bool Floor :: isValid()
 
 bool Floor :: getTileState(uint32_t i,uint32_t j)
 {
-	if (tile == NULL || i >= width || j >= height )   //verificar que malloc no haya devuelto NULL,
-		return false;								//y que los parametros recibidos sean validos
+	if (tile == NULL || i >= width || j >= height )		//verificar que malloc no haya devuelto NULL,
+		return false;									//y que los parametros recibidos sean validos
 
-	return tile[i*height+j];						//devolver el parametro pedido
+	return tile[i*height+j];							//devolver el parametro pedido
 }
 
 
@@ -57,7 +58,7 @@ uint32_t Floor :: getHeight()
 
 bool Floor :: isDirty()
 {
-	if (tile == NULL)	//verificar que malloc no ha ya devuelto NULL
+	if (tile == NULL)			//verificar que malloc no ha ya devuelto NULL
 		return false;
 
 	for (uint32_t i = 0; i < width*height; i++)	//recorrer todo el piso

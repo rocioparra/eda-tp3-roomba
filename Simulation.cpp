@@ -31,7 +31,7 @@ Simulation :: Simulation(uint32_t _robotCount, uint32_t _width, uint32_t _height
 						r[i].redefRobot(_width, _height);
 				}
 				else {
-					delete f;
+					delete f;							//si hubo un error despues de reservar memoria, la libera
 					delete r;
 				}
 			}
@@ -68,10 +68,13 @@ bool Simulation :: nextSimulationStep()
 	}
 
 	if (g != NULL)	{
+	//simulacion grafica
 		(*g).drawFloor((*f).getFloor(), (*f).getWidth(), (*f).getHeight());
+		//dibuja el piso tal como se encuentra habiendose ejecutado este paso
 
 		for (uint32_t i = 0; i < robotCount; i++) {
 			(*g).drawRobot(r[i].getX(), r[i].getY(), r[i].getAngle());
+			//ubica cada uno de los robots con el angulo que corresponda
 		}
 
 		(*g).showChanges();

@@ -2,6 +2,28 @@
 #define FLOOR_H
 #include <cstdint>
 
+/*	
+
+	Instituto Tecnológico de Buenos Aires
+	22.08 - Algoritmos y estructura de datos
+
+	Trabajo práctico n° 3: Robots
+
+	Autores:	Díaz, Ian Cruz				- legajo 57.515
+				Parra, Rocío				- legajo 57.669
+				Stewart Harris, María Luz	- legajo 
+
+	Fecha de entrega: jueves 30 de marzo de 2017
+
+***********************************************************************************************************
+
+	Clase: Floor
+	
+	Los objetos de esta clase consisten en un piso, con un cierto numero de baldosas de ancho y de largo.
+	Cada baldosa puede estar limpia (1) o sucia (0).
+	
+*/
+
 
 class Floor
 {

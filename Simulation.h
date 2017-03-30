@@ -1,6 +1,33 @@
 #ifndef SIMULATION_H
 #define SIMULATION_H
 
+/*	
+
+	Instituto Tecnológico de Buenos Aires
+	22.08 - Algoritmos y estructura de datos
+
+	Trabajo práctico n° 3: Robots
+
+	Autores:	Díaz, Ian Cruz				- legajo 57.515
+				Parra, Rocío				- legajo 57.669
+				Stewart Harris, María Luz	- legajo 
+
+	Fecha de entrega: jueves 30 de marzo de 2017
+
+***********************************************************************************************************
+	
+	Clase Simulation
+	Simula paso por paso como se limpiaria un piso de unas ciertas medidas con un cierto numero de robots
+que se mueven en linea recta hasta chocarse con una pared, momento en el cual cambian el angulo con el que
+mueven a otro angulo random. Cada vez que un robot se posiciona en una baldosa, se considera que la misma
+esta limpia. En cada paso de la simulacion, se incrementa un contador (ticks), que empieza en 0.
+	Dependiendo de los parametros que reciba el constructor, realiza ademas una representacion grafica del 
+proceso.
+
+*/
+
+
+
 #include "Robot.h"
 #include "Floor.h"
 #include "Graphics.h" 
@@ -44,6 +71,7 @@ public:
 	//devuelve true si el piso ya esta limpio y false si no.
 
 	void destroy();
+	//libera la memoria utilizada
 };
 
 
