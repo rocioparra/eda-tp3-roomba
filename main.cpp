@@ -7,7 +7,7 @@
 
 	Autores:	Díaz, Ian Cruz				- legajo 57.515
 				Parra, Rocío				- legajo 57.669
-				Stewart Harris, María Luz	- legajo 
+				Stewart Harris, María Luz	- legajo 57.676
 
 	Fecha de entrega: jueves 30 de marzo de 2017
 
@@ -33,10 +33,6 @@ extern "C" {
 
 }
 
-#define DEBUG
-#ifdef DEBUG
-#include "mainTest.h"
-#endif
 
 
 // MODOS: show once muestra una simulacion graficamente, average muestra un grafico del promedio de ticks para un piso con
@@ -65,7 +61,7 @@ typedef struct {
 } userData_t;
 
 
-int32_t main2(int32_t argc, char * argv[])
+int32_t main(int32_t argc, char * argv[])
 {
 	srand(time(NULL));
 	userData_t ud = {0, 0, 0, 0};
