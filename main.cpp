@@ -115,8 +115,8 @@ int32_t main (int32_t argc, char * argv[])
 
 		g.drawAllBars(meanTicks);
 		g.showChanges();
+                al_rest(5.0);
 	}
-
 	else {
 		cout << "Error: invalid or insufficient parameters. Keep in mind that:"	<< endl
 			 << "- all parameters must be positive integers"					<< endl

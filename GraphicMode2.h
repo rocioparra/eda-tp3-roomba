@@ -1,12 +1,12 @@
 #ifndef GRAPHICMODE2_H
 #define GRAPHICMODE2_H
 
-#include <stdio.h>
 #include "Floor.h"
 #include "Robot.h"
 #include "Simulation.h"
 #include "Point.h"
 extern "C"{
+#include <stdio.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> 
 #include <allegro5/allegro_color.h>
@@ -15,8 +15,10 @@ extern "C"{
 #include <allegro5/allegro_ttf.h>
 }
 #define FONTSIZE 20     //tamaño de letra usada para etiquetar los ejes y el maximo valor
+#define DISPLAY_W 1200
+#define DISPLAY_H 800
 
-class GraphicMode2 //genera un grafico de barras 
+class GraphicMode2      //genera un grafico de barras 
 {
 private:
         ALLEGRO_DISPLAY* display;
