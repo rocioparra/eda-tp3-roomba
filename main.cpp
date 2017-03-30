@@ -3,7 +3,6 @@
 #include <thread>
 #include <string>
 #include <cstdint>
-
 #include "Simulation.h"
 #include "Graphics.h"
 #include "GraphicMode2.h"

@@ -2,9 +2,8 @@
 #define GRAPHICS_H
 
 #include "Point.h"
-#include <stdio.h>
+#include <cstdio>
 #include <cstdint>
-#include <algorithm>
 extern "C"{
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h> 

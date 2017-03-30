@@ -1,8 +1,7 @@
 #include "Robot.h"
 #include <cmath>
 #include <cstdlib>
-#include <ctime>	
-#include <cstdint>
+#include <ctime>
 
 #define M_PI	3.14159265359
 #define DEFAULT_ANGLE	(2*M_PI+1)

@@ -1,5 +1,7 @@
+
 #include "Graphics.h"
 #include <cstdio>
+#include <algorithm>
 
 #define MAX_WIDTH	1000
 #define MAX_HEIGHT	700
