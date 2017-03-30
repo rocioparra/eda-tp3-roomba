@@ -1,8 +1,27 @@
+/*	
+
+	Instituto Tecnológico de Buenos Aires
+	22.08 - Algoritmos y estructura de datos
+
+	Trabajo práctico n° 3: Robots
+
+	Autores:	Díaz, Ian Cruz				- legajo 57.515
+				Parra, Rocío				- legajo 57.669
+				Stewart Harris, María Luz	- legajo 
+
+	Fecha de entrega: jueves 30 de marzo de 2017
+
+*/
+	
+
+
+
 #include <iostream>
 #include <chrono>
 #include <thread>
 #include <string>
 #include <cstdint>
+
 #include "Simulation.h"
 #include "Graphics.h"
 #include "GraphicMode2.h"
@@ -14,8 +33,8 @@ extern "C" {
 
 }
 
-
-
+// MODOS: show once muestra una simulacion graficamente, average muestra un grafico del promedio de ticks para un piso con
+// distintos numeros de robots
 #define SHOW_ONCE	1
 #define AVERAGE		2
 
@@ -24,17 +43,14 @@ extern "C" {
 #define MAX_ROBOTS	100		//maximo numero de robots para el que se calcula el promedio de ticks 
 #define MIN_DIFF	0,1		//minima diferencia que debe haber entre dos promedios consecutivos para seguir calculando promedios
 
-#define N_AUDIO_SAMPLES	1
+#define N_AUDIO_SAMPLES	1	//cuantas pistas de audio se utilizan en este programa (solo la musica de fondo)
 
-#define DEBUG
-#ifdef DEBUG
-#include "mainTest.h"
-#endif
 
 using namespace std;
 
-int32_t check (char * _key, char * _value, void * userData);
+int32_t check (char * _key, char * _value, void * userData);	//predeclaracion: callback para el parser
 
+//donde se guardaran los datos recibidos por linea de comando
 typedef struct {
 	uint32_t width;
 	uint32_t height;
@@ -42,12 +58,16 @@ typedef struct {
 	uint32_t robotN;
 } userData_t;
 
-int32_t main2(int32_t argc, char * argv[])
-{
-	userData_t ud = {0, 0, 0, 0};
 
+int32_t main(int32_t argc, char * argv[])
+{
 	srand(time(NULL));
-	if((parseCmdLine(argc, argv, check, &ud)) == PARSER_ERROR) {
+	userData_t ud = {0, 0, 0, 0};
+	//datos recibidos por el usuario: todo debe empezar en 0, que no es un dato valido para
+	//ninguna opcion, ya que despues sabemos que no se recibio un dato si sigue en 0
+		
+	if((parseCmdLine(argc, argv, check, &ud)) == PARSER_ERROR) { 
+		//si no se reciben datos validos por linea de comando, no se puede continuar
 		cout << "Invalid parameters. Keep in mind that:"						<< endl
 			 << "- all parameters must be positive integers"					<< endl
 			 << "- Mode can only be 1 (show once) or 2 (mean average)"			<< endl;
@@ -55,18 +75,22 @@ int32_t main2(int32_t argc, char * argv[])
 	}
 
 	if( !ud.height || !ud.width || (!ud.robotN && ud.mode == SHOW_ONCE) )
+	// si no se recibieron las medidas del piso, o si no se recibieron los robots para el modo 1,
+	// no se puede realizar la simulacion. al quedar el modo en 0, se avanzara a la parte de error
 		ud.mode = 0;
 
 
-	if(ud.mode == SHOW_ONCE) {
-		Graphics g(ud.width, ud.height);
-                if ( !g.isValid() ) {
+	if(ud.mode == SHOW_ONCE) { //MODO 1
+		Graphics g(ud.width, ud.height);					//inicializar la parte grafica
+      
+		if ( !g.isValid() ) {
 			cout << "Error: allegro was not properly initialized" << endl;
 			return -1;
 		}
-                MyAudio a(N_AUDIO_SAMPLES);
-                sampleID bgMusic = a.loadSample("DiscoMusic.wav");
-		Simulation s(ud.robotN, ud.width, ud.height, &g);
+
+		MyAudio a(N_AUDIO_SAMPLES);							//inicializar el audio
+        sampleID bgMusic = a.loadSample("DiscoMusic.wav");	//cargar la musica de fondo
+		Simulation s(ud.robotN, ud.width, ud.height, &g);	//inicializar la simulacion
 
 		if( bgMusic == NULL ) {
 			cout << "Error: could not load audio sample" << endl;
@@ -77,25 +101,30 @@ int32_t main2(int32_t argc, char * argv[])
 			return -1;
 		}
 		
-		a.playSampleLooped(bgMusic);
+		a.playSampleLooped(bgMusic);		//encender la musica de fondo
 
-		while(!s.nextSimulationStep());
+		while(!s.nextSimulationStep());		//realizar y mostrar la simulacion
                 
+		g.showTickCount(s.getTickCount());	//pop-up que indica los ticks
+
+		s.destroy();						//destruir todo
 		a.stopSamples();
-		g.showTickCount(s.getTickCount());
-		s.destroy();
-        g.destructor();
+		g.destructor();
+		a.destructor();
 	}
 
-	else if (ud.mode == AVERAGE) {
+	else if (ud.mode == AVERAGE) {    //MODO 2
 		double meanTicks[MAX_ROBOTS];				//promedios
 		uint32_t n, i;								//contadores: robots, ciclos
 		memset(meanTicks, 0, sizeof(meanTicks));	//inicializo todo el arreglo en 0
 
 		for (n = 0; n < MAX_ROBOTS && ( n>1 && meanTicks[n-2] - meanTicks[n-1] > MIN_DIFF); n++) {
+		//se prueba desde 1 robot a 100 robots, o hasta que los promedios den casi lo mismo para dos
+		//numeros de robots consecutivos
 			cout << "Simulating "<< n+1 << " robots"<< endl;
 
 			for(i = 0; i < CICLES; i++)	{
+			//para cada numero de robots, simular 1000 veces
 				Simulation s(n+1, ud.width, ud.height);
 				if ( !s.isValid() ) {
 					cout << "Error: parameters exceeded the maximum (0<width<=100"
@@ -103,11 +132,11 @@ int32_t main2(int32_t argc, char * argv[])
 					return -1;
 				}
 				
-				while(!s.nextSimulationStep());
-				meanTicks[n] += double (s.getTickCount());
+				while(!s.nextSimulationStep());	//realizar la simulacion (no muestra nada)
+				meanTicks[n] += double (s.getTickCount());	//va sumando los ticks 
 				s.destroy();
 			}
-			meanTicks[n]/=CICLES;
+			meanTicks[n]/=CICLES;	//obtiene el promedio de ticks de las simulaciones hechas 
 		}
 
 		GraphicMode2 g(n);
@@ -116,12 +145,12 @@ int32_t main2(int32_t argc, char * argv[])
 			return -1;
 		}
 
-		g.drawAllBars(meanTicks);
+		g.drawAllBars(meanTicks);	//grafica los resultados obtenidos
 		g.showChanges();
-		this_thread::sleep_for(chrono::seconds(5));
+		this_thread::sleep_for(chrono::seconds(5));	//muestra los resultados por 5 segundos
 		g.destructor();
 	}
-	else {
+	else { //parametros no validos
 		cout << "Error: invalid or insufficient parameters. Keep in mind that:"	<< endl
 			 << "- all parameters must be positive integers"					<< endl
 			 << "- Mode can only be 1 (show once) or 2 (mean average)"			<< endl
